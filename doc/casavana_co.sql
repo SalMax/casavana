@@ -3,8 +3,8 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 11-02-2013 a las 20:47:31
--- Versión del servidor: 5.5.8
+-- Tiempo de generación: 12-02-2013 a las 00:31:40
+-- Versión del servidor: 5.5.24-log
 -- Versión de PHP: 5.4.3
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
@@ -17,8 +17,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de datos: `casavana`
+-- Base de datos: `casavana_co`
 --
+CREATE DATABASE `casavana_co` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `casavana_co`;
 
 -- --------------------------------------------------------
 
@@ -37,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `administrador` (
 --
 
 INSERT INTO `administrador` (`DNI`) VALUES
-('25597487M');
+('22222222M');
 
 -- --------------------------------------------------------
 
@@ -74,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `gestor` (
 CREATE TABLE IF NOT EXISTS `pedido` (
   `Ref` varchar(10) NOT NULL,
   `DNI_Cliente` varchar(45) NOT NULL,
-  `DNI_Gestor` varchar(45) DEFAULT NULL,
+  `DNI_Gestor` varchar(45) NOT NULL,
   `Coste` decimal(10,2) NOT NULL,
   `Precio` decimal(10,2) NOT NULL,
   `Estado` varchar(45) NOT NULL,
@@ -94,8 +96,8 @@ CREATE TABLE IF NOT EXISTS `pedido` (
 CREATE TABLE IF NOT EXISTS `pedido - producto` (
   `Pedido` varchar(10) NOT NULL,
   `Producto` varchar(10) NOT NULL,
-  KEY `Pedido` (`Pedido`),
-  KEY `Producto` (`Producto`)
+  KEY `Producto` (`Producto`),
+  KEY `Pedido` (`Pedido`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -118,13 +120,6 @@ CREATE TABLE IF NOT EXISTS `producto` (
   KEY `DNI_PPGestor` (`DNI_Gestor`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla de Productos';
 
---
--- Volcado de datos para la tabla `producto`
---
-
-INSERT INTO `producto` (`Ref`, `DNI_Gestor`, `Nombre`, `Descripcion`, `Coste`, `Margen`, `Precio`, `Categoria`, `Estado`) VALUES
-('1', '', 'Mistol', NULL, '10.00', '5.00', '15.00', 'Vajilla', '');
-
 -- --------------------------------------------------------
 
 --
@@ -132,7 +127,7 @@ INSERT INTO `producto` (`Ref`, `DNI_Gestor`, `Nombre`, `Descripcion`, `Coste`, `
 --
 
 CREATE TABLE IF NOT EXISTS `usuario` (
-  `Dni` varchar(45) NOT NULL,
+  `DNI` varchar(45) NOT NULL,
   `Nombre` varchar(45) NOT NULL,
   `Apellido1` varchar(45) NOT NULL,
   `Apellido2` varchar(45) DEFAULT NULL,
@@ -145,16 +140,15 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `Usuario` varchar(45) NOT NULL,
   `Clave` varchar(45) NOT NULL,
   `DNI_Administrador` varchar(45) NOT NULL,
-  PRIMARY KEY (`Dni`),
-  KEY `DNI_Administrador_Us` (`DNI_Administrador`)
+  PRIMARY KEY (`DNI`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`Dni`, `Nombre`, `Apellido1`, `Apellido2`, `Direccion`, `Telefono`, `Fecha Alta`, `Fecha Ultimo Acceso`, `Estado`, `Email`, `Usuario`, `Clave`, `DNI_Administrador`) VALUES
-('25597487M', 'Pablo', 'Torres', 'Alba', 'Granada', '662288046', '2013-11-02', '2013-11-02', 'Activo', 'pta1988@gmail.com', 'pta1988', 'pta1988', '25597487M');
+INSERT INTO `usuario` (`DNI`, `Nombre`, `Apellido1`, `Apellido2`, `Direccion`, `Telefono`, `Fecha Alta`, `Fecha Ultimo Acceso`, `Estado`, `Email`, `Usuario`, `Clave`, `DNI_Administrador`) VALUES
+('22222222M', 'Pablo', 'Pablo', 'Pablo', 'Granada', '669988745', '2013-02-11', '2013-02-11', 'Activo', 'pablo@casavana.com', 'pablo', 'pablo', '');
 
 --
 -- Restricciones para tablas volcadas
@@ -191,6 +185,12 @@ ALTER TABLE `pedido`
 ALTER TABLE `pedido - producto`
   ADD CONSTRAINT `Producto` FOREIGN KEY (`Producto`) REFERENCES `producto` (`Ref`) ON UPDATE CASCADE,
   ADD CONSTRAINT `Pedido` FOREIGN KEY (`Pedido`) REFERENCES `pedido` (`Ref`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `producto`
+--
+ALTER TABLE `producto`
+  ADD CONSTRAINT `DNI_PPGestor` FOREIGN KEY (`DNI_Gestor`) REFERENCES `gestor` (`DNI`) ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
