@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `casavana_co`
 --
-CREATE DATABASE `casavana_co` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `casavana_co`;
 
 -- --------------------------------------------------------
 
