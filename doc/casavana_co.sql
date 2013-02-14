@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 12-02-2013 a las 00:31:40
+-- Tiempo de generación: 14-02-2013 a las 19:15:41
 -- Versión del servidor: 5.5.24-log
 -- Versión de PHP: 5.4.3
 
@@ -94,6 +94,8 @@ CREATE TABLE IF NOT EXISTS `pedido` (
 CREATE TABLE IF NOT EXISTS `pedido - producto` (
   `Pedido` varchar(10) NOT NULL,
   `Producto` varchar(10) NOT NULL,
+  `N` varchar(45) NOT NULL,
+  PRIMARY KEY (`N`),
   KEY `Producto` (`Producto`),
   KEY `Pedido` (`Pedido`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -156,19 +158,19 @@ INSERT INTO `usuario` (`DNI`, `Nombre`, `Apellido1`, `Apellido2`, `Direccion`, `
 -- Filtros para la tabla `administrador`
 --
 ALTER TABLE `administrador`
-  ADD CONSTRAINT `DNI_Admin` FOREIGN KEY (`DNI`) REFERENCES `usuario` (`Dni`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `DNI_Admin` FOREIGN KEY (`DNI`) REFERENCES `usuario` (`DNI`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `cliente`
 --
 ALTER TABLE `cliente`
-  ADD CONSTRAINT `DNI` FOREIGN KEY (`DNI`) REFERENCES `usuario` (`Dni`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `DNI` FOREIGN KEY (`DNI`) REFERENCES `usuario` (`DNI`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `gestor`
 --
 ALTER TABLE `gestor`
-  ADD CONSTRAINT `DNI_Gestor` FOREIGN KEY (`DNI`) REFERENCES `usuario` (`Dni`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `DNI_Gestor` FOREIGN KEY (`DNI`) REFERENCES `usuario` (`DNI`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `pedido`
@@ -181,8 +183,8 @@ ALTER TABLE `pedido`
 -- Filtros para la tabla `pedido - producto`
 --
 ALTER TABLE `pedido - producto`
-  ADD CONSTRAINT `Producto` FOREIGN KEY (`Producto`) REFERENCES `producto` (`Ref`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `Pedido` FOREIGN KEY (`Pedido`) REFERENCES `pedido` (`Ref`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `Pedido` FOREIGN KEY (`Pedido`) REFERENCES `pedido` (`Ref`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `Producto` FOREIGN KEY (`Producto`) REFERENCES `producto` (`Ref`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `producto`
