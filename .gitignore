@@ -79,6 +79,7 @@ $RECYCLE.BIN/
 # Linux
 .*
 !.gitignore
+!.gitattributes
 *~
 
 # Mac OS X
