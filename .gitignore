@@ -13,6 +13,8 @@ web/uploads/*
 
 app/cache
 
+vendor
+
 # -- Configuracion de acceso a la base de datos -----
 app/config/parameters.yml
 
