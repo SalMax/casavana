@@ -11,6 +11,10 @@ web/css/*
 web/js/*
 web/uploads/*
 
+app/cache
+
+# -- Configuracion de acceso a la base de datos -----
+app/config/parameters.yml
 
 # -- Composer -----------------------------------------
 composer.phar

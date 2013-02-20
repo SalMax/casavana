@@ -17,6 +17,7 @@ framework:
     trust_proxy_headers: false # Deprecated in 2.0; will be removed in 2.3 (used trusted_proxies instead)
     trusted_proxies: ~
     session:         ~
+    translator: ~
 
 # Twig Configuration
 twig:
@@ -46,6 +47,8 @@ doctrine:
         user:     "%database_user%"
         password: "%database_password%"
         charset:  UTF8
+        types:
+            json: Sonata\Doctrine\Types\JsonType
 
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
@@ -69,9 +72,17 @@ sonata_block:
         sonata.block.service.text:   ~
         sonata.block.service.action: ~
         sonata.block.service.rss:    ~
+        
+fos_user:
+    # tipo de ORM/ODB que utilizas (también puede ser 'mongodb', 'couchdb' y 'propel')
+    db_driver:     orm
+    # el nombre de tu firewall
+    firewall_name: main
+    # el namespace de tu clase 'User' específica
+    user_class:    CasavanaCO\BDBundle\Entity\User
 
 sonata_admin:
-    title:      Sonata Project
+    title:      Casavana Central Order
     title_logo: /bundles/sonataadmin/logo_title.png
     templates:
         # default global templates
@@ -82,7 +93,19 @@ sonata_admin:
         list:    SonataAdminBundle:CRUD:list.html.twig
         show:    SonataAdminBundle:CRUD:show.html.twig
         edit:    SonataAdminBundle:CRUD:edit.html.twig
-
+    security:
+        handler: sonata.admin.security.handler.acl
+        # acl security information
+        information:
+            GUEST:    [VIEW, LIST]
+            STAFF:    [EDIT, LIST, CREATE]
+            EDITOR:   [OPERATOR, EXPORT]
+            ADMIN:    [MASTER]
+        # permissions not related to an object instance and also to be available when objects do not exist
+        # the DELETE admin permission means the user is allowed to batch delete objects
+        admin_permissions: [CREATE, LIST, DELETE, UNDELETE, EXPORT, OPERATOR, MASTER]
+        # permission related to the objects
+        object_permissions: [VIEW, EDIT, DELETE, UNDELETE, OPERATOR, MASTER, OWNER]
     dashboard:
         blocks:
             # display a dashboard block
