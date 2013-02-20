@@ -13,9 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
 class PedidoProducto
 {
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="N", type="string", length=45, nullable=false)
+     * @ORM\Column(name="N", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -46,7 +46,7 @@ class PedidoProducto
     /**
      * Get n
      *
-     * @return string 
+     * @return integer 
      */
     public function getN()
     {
