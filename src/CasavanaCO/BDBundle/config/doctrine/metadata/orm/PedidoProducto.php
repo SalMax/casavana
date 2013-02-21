@@ -5,12 +5,12 @@
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * PedidoProducto
+ * Pedidoproducto
  *
- * @ORM\Table(name="pedido - producto")
+ * @ORM\Table(name="pedidoproducto")
  * @ORM\Entity
  */
-class PedidoProducto
+class Pedidoproducto
 {
     /**
      * @var integer
@@ -22,22 +22,16 @@ class PedidoProducto
     private $n;
 
     /**
-     * @var \Pedido
+     * @var string
      *
-     * @ORM\ManyToOne(targetEntity="Pedido")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="Pedido", referencedColumnName="Ref")
-     * })
+     * @ORM\Column(name="Pedido", type="string", length=10, nullable=false)
      */
     private $pedido;
 
     /**
-     * @var \Producto
+     * @var string
      *
-     * @ORM\ManyToOne(targetEntity="Producto")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="Producto", referencedColumnName="Ref")
-     * })
+     * @ORM\Column(name="Producto", type="string", length=10, nullable=false)
      */
     private $producto;
 
