@@ -5,12 +5,12 @@ namespace CasavanaCO\BDBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * PedidoProducto
+ * Pedidoproducto
  *
- * @ORM\Table(name="pedido - producto")
+ * @ORM\Table(name="pedidoproducto")
  * @ORM\Entity
  */
-class PedidoProducto
+class Pedidoproducto
 {
     /**
      * @var integer
@@ -22,22 +22,16 @@ class PedidoProducto
     private $n;
 
     /**
-     * @var \Pedido
+     * @var string
      *
-     * @ORM\ManyToOne(targetEntity="Pedido")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="Pedido", referencedColumnName="Ref")
-     * })
+     * @ORM\Column(name="Pedido", type="string", length=10, nullable=false)
      */
     private $pedido;
 
     /**
-     * @var \Producto
+     * @var string
      *
-     * @ORM\ManyToOne(targetEntity="Producto")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="Producto", referencedColumnName="Ref")
-     * })
+     * @ORM\Column(name="Producto", type="string", length=10, nullable=false)
      */
     private $producto;
 
@@ -56,10 +50,10 @@ class PedidoProducto
     /**
      * Set pedido
      *
-     * @param \CasavanaCO\BDBundle\Entity\Pedido $pedido
-     * @return PedidoProducto
+     * @param string $pedido
+     * @return Pedidoproducto
      */
-    public function setPedido(\CasavanaCO\BDBundle\Entity\Pedido $pedido = null)
+    public function setPedido($pedido)
     {
         $this->pedido = $pedido;
     
@@ -69,7 +63,7 @@ class PedidoProducto
     /**
      * Get pedido
      *
-     * @return \CasavanaCO\BDBundle\Entity\Pedido 
+     * @return string 
      */
     public function getPedido()
     {
@@ -79,10 +73,10 @@ class PedidoProducto
     /**
      * Set producto
      *
-     * @param \CasavanaCO\BDBundle\Entity\Producto $producto
-     * @return PedidoProducto
+     * @param string $producto
+     * @return Pedidoproducto
      */
-    public function setProducto(\CasavanaCO\BDBundle\Entity\Producto $producto = null)
+    public function setProducto($producto)
     {
         $this->producto = $producto;
     
@@ -92,7 +86,7 @@ class PedidoProducto
     /**
      * Get producto
      *
-     * @return \CasavanaCO\BDBundle\Entity\Producto 
+     * @return string 
      */
     public function getProducto()
     {
