@@ -13,36 +13,20 @@ use Doctrine\ORM\Mapping as ORM;
 class Administrador
 {
     /**
-     * @var \Usuario
+     * @var string
      *
+     * @ORM\Column(name="DNI", type="string", length=45, nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\OneToOne(targetEntity="Usuario")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="DNI", referencedColumnName="DNI")
-     * })
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $dni;
 
 
 
     /**
-     * Set dni
-     *
-     * @param \CasavanaCO\BDBundle\Entity\Usuario $dni
-     * @return Administrador
-     */
-    public function setDni(\CasavanaCO\BDBundle\Entity\Usuario $dni)
-    {
-        $this->dni = $dni;
-    
-        return $this;
-    }
-
-    /**
      * Get dni
      *
-     * @return \CasavanaCO\BDBundle\Entity\Usuario 
+     * @return string 
      */
     public function getDni()
     {

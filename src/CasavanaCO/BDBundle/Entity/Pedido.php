@@ -45,14 +45,14 @@ class Pedido
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="Fecha Pedido", type="date", nullable=false)
+     * @ORM\Column(name="Fecha_Pedido", type="date", nullable=false)
      */
     private $fechaPedido;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="Fecha Modificacion", type="date", nullable=false)
+     * @ORM\Column(name="Fecha_Modificacion", type="date", nullable=false)
      */
     private $fechaModificacion;
 

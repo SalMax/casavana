@@ -59,14 +59,14 @@ class Usuario
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="Fecha Alta", type="date", nullable=false)
+     * @ORM\Column(name="Fecha_Alta", type="date", nullable=false)
      */
     private $fechaAlta;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="Fecha Ultimo Acceso", type="date", nullable=false)
+     * @ORM\Column(name="Fecha_Ultimo_Acceso", type="date", nullable=false)
      */
     private $fechaUltimoAcceso;
 

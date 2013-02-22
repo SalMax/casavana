@@ -13,6 +13,15 @@ use Doctrine\ORM\Mapping as ORM;
 class Cliente
 {
     /**
+     * @var string
+     *
+     * @ORM\Column(name="DNI", type="string", length=45, nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $dni;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="N_Pedidos", type="integer", nullable=false)
@@ -26,19 +35,17 @@ class Cliente
      */
     private $desembolso;
 
+
+
     /**
-     * @var \Usuario
+     * Get dni
      *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\OneToOne(targetEntity="Usuario")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="DNI", referencedColumnName="DNI")
-     * })
+     * @return string 
      */
-    private $dni;
-
-
+    public function getDni()
+    {
+        return $this->dni;
+    }
 
     /**
      * Set nPedidos
@@ -84,28 +91,5 @@ class Cliente
     public function getDesembolso()
     {
         return $this->desembolso;
-    }
-
-    /**
-     * Set dni
-     *
-     * @param \CasavanaCO\BDBundle\Entity\Usuario $dni
-     * @return Cliente
-     */
-    public function setDni(\CasavanaCO\BDBundle\Entity\Usuario $dni)
-    {
-        $this->dni = $dni;
-    
-        return $this;
-    }
-
-    /**
-     * Get dni
-     *
-     * @return \CasavanaCO\BDBundle\Entity\Usuario 
-     */
-    public function getDni()
-    {
-        return $this->dni;
     }
 }
