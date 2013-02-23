@@ -9,8 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Entity
  */
-class Invoice
-{
+class Invoice{
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -51,13 +50,13 @@ class Invoice
      */
     protected $lastmodify;
 
-
     /**
      * Constructor
      */
     public function __construct()
     {
         $this->orders = new \Doctrine\Common\Collections\ArrayCollection();
+
     }
     
     /**
@@ -76,10 +75,9 @@ class Invoice
      * @param float $price
      * @return Invoice
      */
-    public function setPrice($price)
+    public function setPrice()
     {
-        $this->price = $price;
-    
+        $this->price = '0';
         return $this;
     }
 

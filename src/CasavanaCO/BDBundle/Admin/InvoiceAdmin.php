@@ -12,11 +12,11 @@ class InvoiceAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-        		->add('invoiceproducts', 'sonata_type_collection', array(), array(
+            ->add('invoiceproducts', 'sonata_type_collection', array(), array(
                 'edit' => 'inline',
                 'inline' => 'table',
                 'sortable'  => 'position'))
-            ->add('price')
+            ->add('price',null,array('read_only'=>true,'empty_data'=>'0'))
             ->add('status')
             ->add('invoiceDate','date')
             ->add('lastModify','date')
