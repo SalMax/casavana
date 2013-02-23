@@ -57,6 +57,11 @@ class Product
      * @ORM\Column(name="price", type="decimal", nullable=false)
      */
     protected $price;
+	
+	/**
+     * @ORM\Column(name="price_by", type="string", length=255, nullable=false)
+     */
+    protected $price_by;
     
     /**
      * @ORM\OneToMany(targetEntity="CasavanaCO\BDBundle\Entity\Pedidos", mappedBy="product")

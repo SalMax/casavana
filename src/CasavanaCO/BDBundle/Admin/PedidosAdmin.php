@@ -47,7 +47,7 @@ class PedidosAdmin extends Admin
     public function validate(ErrorElement $errorElement, $object)
     {
         $errorElement
-            ->with('name')
+            ->with('cantidad')
                 ->assertMaxLength(array('limit' => 32))
             ->end()
         ;
