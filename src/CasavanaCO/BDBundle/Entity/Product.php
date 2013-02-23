@@ -177,16 +177,17 @@ class Product
     {
         return $this->margin;
     }
-
+	
+	
     /**
      * Set price
      *
      * @param float $price
      * @return Product
      */
-    public function setPrice($price)
+    public function setPrice()
     {
-        $this->price = $price;
+        $this->price = $this->cost + $this->margin;
     
         return $this;
     }
@@ -200,6 +201,30 @@ class Product
     {
         return $this->price;
     }
+	
+	/**
+     * Set price
+     *
+     * @param float $price
+     * @return Product
+     */
+    public function setPriceBy($price_by)
+    {
+        $this->price_by = $price_by;
+    
+        return $this;
+    }
+
+    /**
+     * Get price
+     *
+     * @return float 
+     */
+    public function getPriceBy()
+    {
+        return $this->price_by;
+    }
+	
 
     /**
      * Set category

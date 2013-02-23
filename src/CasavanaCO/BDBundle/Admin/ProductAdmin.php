@@ -6,6 +6,7 @@ use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Form\FormType;
 
 class ProductAdmin extends Admin
 {
@@ -16,7 +17,8 @@ class ProductAdmin extends Admin
             ->add('description')
             ->add('cost')
             ->add('margin')
-            ->add('price')
+			->add('price',null, array('read_only' => true,'empty_data'=>'0'))
+			->add('price_by','choice', array('choices' => array('unit' => 'Unit', 'lb' => 'Lb')))
             ->add('category', 'sonata_type_model_list', array('required' => false))
         ;
     }
