@@ -44,4 +44,16 @@ class ProductAdmin extends Admin
 				    )))
         ;
     }
+    
+    public function prePersist($product)
+    {
+        $product->setPrice($product->getCost()+$product->getMargin());
+        
+    }
+    
+    public function preUpdate($product)
+    {
+        $product->setPrice($product->getCost()+$product->getMargin());
+        
+    }
 }
