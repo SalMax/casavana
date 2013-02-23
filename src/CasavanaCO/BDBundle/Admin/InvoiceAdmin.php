@@ -16,10 +16,8 @@ class InvoiceAdmin extends Admin
                 'edit' => 'inline',
                 'inline' => 'table',
                 'sortable'  => 'position'))
-            ->add('price',null,array('read_only'=>true,'empty_data'=>'0'))
-            ->add('status')
-            ->add('invoiceDate','date')
-            ->add('lastModify','date')
+            ->add('price',null,array('empty_data'=>'0'))
+            ->add('status','choice', array('choices' => array('opened' => 'Opened', 'processing' => 'Processing', 'closed' => 'Closed')))
         ;
     }
 
@@ -34,6 +32,29 @@ class InvoiceAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('invoiceDate','date')
+            ->add('price')
+            ->add('status')
+            ->add('_action', 'actions', array(
+            'actions' => array(
+		        'edit' => array(),
+		        'delete' => array()
+				    )))
         ;
+        
     }
+    
+    public function prePersist($invoice)
+    {
+    		$currentTime = new \DateTime(date('m/d/Y h:i:s a', time()));
+        $invoice->setInvoiceDate($currentTime);
+        $invoice->setLastmodify($currentTime);
+        
+    }
+    
+    public function preUpdate($invoice)
+    {
+    		$currentTime = new \DateTime(date('m/d/Y h:i:s a', time()));
+        $invoice->setLastmodify($currentTime);
+    }
+
 }

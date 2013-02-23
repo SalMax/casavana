@@ -17,8 +17,7 @@ class ProductAdmin extends Admin
             ->add('description')
             ->add('cost')
             ->add('margin')
-			->add('price',null, array('read_only' => true,'empty_data'=>'0'))
-			->add('price_by','choice', array('choices' => array('unit' => 'Unit', 'lb' => 'Lb')))
+            ->add('price_by','choice', array('choices' => array('unit' => 'Unit', 'lb' => 'Lb')))
             ->add('category', 'sonata_type_model_list', array('required' => false))
         ;
     }
@@ -34,6 +33,15 @@ class ProductAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('name')
+            ->add('description')
+            ->add('cost')
+            ->add('margin')
+            ->add('price')
+            ->add('_action', 'actions', array(
+            'actions' => array(
+		        'edit' => array(),
+		        'delete' => array()
+				    )))
         ;
     }
 }
