@@ -85,7 +85,9 @@ class InvoiceAdmin extends Admin
         $pedidos = $invoice->getInvoiceproducts();
         //A cada pedido le asignamos el ID del invoice
         for ( $i = 0 ; $i < count($pedidos) ; $i ++) {
-            $producto = $pedidos[$i]->setInvoice($invoice);
+            if(isset($pedidos[$i])){
+                $producto = $pedidos[$i]->setInvoice($invoice);
+            }
         }
     }
     
@@ -96,9 +98,12 @@ class InvoiceAdmin extends Admin
         $invoice->setPrice($this->Total_Price($invoice));
         
         $pedidos = $invoice->getInvoiceproducts();
+        
         //A cada pedido le asignamos el ID del invoice
         for ( $i = 0 ; $i < count($pedidos) ; $i ++) {
-            $producto = $pedidos[$i]->setInvoice($invoice);
+            if(isset($pedidos[$i])){
+                $producto = $pedidos[$i]->setInvoice($invoice);
+            }
         }
     }
     

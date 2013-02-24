@@ -17,7 +17,7 @@ class PedidosAdmin extends Admin
     {
         $formMapper
             ->add('cantidad')
-            ->add('product', 'sonata_type_model_list', array('required' => false))
+            ->add('product', 'sonata_type_model_list', array('required' => true))
         ;
     }
 
