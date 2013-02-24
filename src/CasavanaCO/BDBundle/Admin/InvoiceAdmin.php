@@ -81,13 +81,25 @@ class InvoiceAdmin extends Admin
         $invoice->setInvoiceDate($currentTime);
         $invoice->setLastmodify($currentTime);
         $invoice->setPrice($this->Total_Price($invoice));
+        
+        $pedidos = $invoice->getInvoiceproducts();
+        //A cada pedido le asignamos el ID del invoice
+        for ( $i = 0 ; $i < count($pedidos) ; $i ++) {
+            $producto = $pedidos[$i]->setInvoice($invoice);
+        }
     }
     
     public function preUpdate($invoice)
-    {
+    {   
     	$currentTime = new \DateTime(date('m/d/Y h:i:s a', time()));
         $invoice->setLastmodify($currentTime);
         $invoice->setPrice($this->Total_Price($invoice));
+        
+        $pedidos = $invoice->getInvoiceproducts();
+        //A cada pedido le asignamos el ID del invoice
+        for ( $i = 0 ; $i < count($pedidos) ; $i ++) {
+            $producto = $pedidos[$i]->setInvoice($invoice);
+        }
     }
     
 }
