@@ -75,9 +75,9 @@ class Invoice{
      * @param float $price
      * @return Invoice
      */
-    public function setPrice()
+    public function setPrice($price)
     {
-        $this->price = '0';
+        $this->price = $price;
         return $this;
     }
 

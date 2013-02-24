@@ -185,9 +185,9 @@ class Product
      * @param float $price
      * @return Product
      */
-    public function setPrice()
+    public function setPrice($price)
     {
-        $this->price = $this->cost + $this->margin;
+        $this->price = $price;
     
         return $this;
     }
