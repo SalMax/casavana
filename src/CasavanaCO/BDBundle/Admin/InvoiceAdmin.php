@@ -23,16 +23,18 @@ class InvoiceAdmin extends Admin
         //Preparamos conexion
         //$doctrine = $this->getConfigurationPool()->getContainer()->get('doctrine');
         //$em = $doctrine->getEntityManager();
+        //$producto = $em->getRepository('CasavanaCOBDBundle:Product')->find("$pedidos[$i]->getProduct().getId()");
+
         
         //Capturamos los pedidos
         $pedidos = $invoice->getInvoiceproducts();
         
         //Para cada pedido buscamos los productos asociados
         for ( $i = 0 ; $i < count($pedidos) ; $i ++) {
-            //Realizamos las consulta
-            //$producto = $em->getRepository('CasavanaCOBDBundle:Product')->find("$pedidos[$i]->getProduct().getId()");
-            $producto = $pedidos[$i]->getProduct();
-            $suma_precio = $suma_precio + $producto->getPrice() * $pedidos[$i]->getCantidad();
+            if(isset($pedidos[$i])){
+                $producto = $pedidos[$i]->getProduct();
+                $suma_precio = $suma_precio + $producto->getPrice() * $pedidos[$i]->getCantidad();
+            }
         }
         //$this->getForm()->getAttribute('cantidad');
         return $suma_precio;
@@ -57,6 +59,7 @@ class InvoiceAdmin extends Admin
     {
         $datagridMapper
             ->add('invoiceDate')
+            ->add('status')
         ;
     }
 
@@ -65,7 +68,7 @@ class InvoiceAdmin extends Admin
         $listMapper
             ->addIdentifier('invoiceDate','date')
             ->add('price')
-            ->add('status')
+            ->add('status','choice', array('choices' => array('opened' => 'Opened', 'processing' => 'Processing', 'closed' => 'Closed')))
             ->add('_action', 'actions', array(
             'actions' => array(
 		        'edit' => array(),
@@ -106,5 +109,23 @@ class InvoiceAdmin extends Admin
             }
         }
     }
+    
+    public function postUpdate($invoice)
+    {   
+        
+        //Preparamos conexion
+        $doctrine = $this->getConfigurationPool()->getContainer()->get('doctrine');
+        $em = $doctrine->getEntityManager();
+        $pedidos = $em->getRepository('CasavanaCOBDBundle:Pedidos')->find($invoice->getId());
+sdfsdfsdfsdf;
+
+        $pedidos = $invoice->getInvoiceproducts();
+        for ( $i = 0 ; $i < count($pedidos) ; $i ++) {
+            if($pedidos[$i]!=null){
+                $em->remove($pedidos[$i]);
+            }
+        }
+        }
+ 
     
 }
