@@ -117,7 +117,9 @@ class InvoiceAdmin extends Admin
         $doctrine = $this->getConfigurationPool()->getContainer()->get('doctrine');
         $em = $doctrine->getEntityManager();
         $pedidos = $em->getRepository('CasavanaCOBDBundle:Pedidos')->find($invoice->getId());
-sdfsdfsdfsdf;
+/*********************************/
+        /*******************/
+        /*******************/
 
         $pedidos = $invoice->getInvoiceproducts();
         for ( $i = 0 ; $i < count($pedidos) ; $i ++) {
