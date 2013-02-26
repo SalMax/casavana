@@ -12,13 +12,13 @@ class InvoiceAdmin extends Admin
 {
     //private $doctrine;
     //private $em;
-    
+
     private function Total_Price($invoice){
         
         /*****************************************/
         /** NO DESCOMENTAR, PUEDE QUE NOS SIRVA **/
         /*****************************************/
-        
+
         $suma_precio = 0;
         //Preparamos conexion
         //$doctrine = $this->getConfigurationPool()->getContainer()->get('doctrine');
@@ -66,12 +66,15 @@ class InvoiceAdmin extends Admin
         $listMapper
             ->addIdentifier('invoiceDate','date')
             ->add('price')
-            ->add('status','choice', array('choices' => array('opened' => 'Opened', 'processing' => 'Processing', 'closed' => 'Closed')))
+            //->add('status')
+            //->add('status','choice', array('choices' => array('opened' => 'Opened', 'processing' => 'Processing', 'closed' => 'Closed')))
             ->add('_action', 'actions', array(
-            'actions' => array(
+                  'status' => array(
+                      'act' => array('template' => 'CasavanaCOBDBundle:Invoice_List:Status.html.twig'))))
+            /*->add('_action', 'actions', array(
+                  'actions' => array(
 		        'edit' => array(),
-		        'delete' => array()
-				    )))
+		        'delete' => array())))*/
         ;
         
     }
