@@ -58,15 +58,6 @@ _sonata_admin:
     resource: .
     type: sonata_admin
     prefix: /admin
-    
-client:
-    resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
-    prefix: /client
- 
-_sonata_client:
-    resource: .
-    type: sonata_admin
-    prefix: /client
  
 soanata_user:
     resource: '@SonataUserBundle/Resources/config/routing/admin_security.xml'
