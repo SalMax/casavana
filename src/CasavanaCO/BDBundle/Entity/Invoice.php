@@ -18,7 +18,7 @@ class Invoice{
     protected $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="CasavanaCO\BDBundle\Entity\Pedidos", mappedBy="invoice", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="CasavanaCO\BDBundle\Entity\Pedidos", mappedBy="invoice", cascade={"persist", "remove"}, orphanRemoval=true)
      */ 
     protected $invoiceproducts;
 

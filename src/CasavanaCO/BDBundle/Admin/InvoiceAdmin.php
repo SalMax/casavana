@@ -28,14 +28,13 @@ class InvoiceAdmin extends Admin
         
         //Capturamos los pedidos
         $pedidos = $invoice->getInvoiceproducts();
-        
         //Para cada pedido buscamos los productos asociados
         foreach($pedidos as $pedido_i){
         //for ( $i = 0 ; $i < count($pedidos) ; $i ++) {
-            if(isset($pedido_i)){
+            //if(isset($pedido_i)){
                 $producto = $pedido_i->getProduct();
                 $suma_precio = $suma_precio + $producto->getPrice() * $pedido_i->getCantidad();
-            }
+            //}
         }
         //$this->getForm()->getAttribute('cantidad');
         return $suma_precio;
@@ -44,8 +43,6 @@ class InvoiceAdmin extends Admin
 
     protected function configureFormFields(FormMapper $formMapper)
     {    
-
-        
         $formMapper
             ->add('invoiceproducts', 'sonata_type_collection', array(), array(
                 'edit' => 'inline',
@@ -112,25 +109,4 @@ class InvoiceAdmin extends Admin
             }
         }
     }
-    
-    public function postUpdate($invoice)
-    {   
-        
-        //Preparamos conexion
-        $doctrine = $this->getConfigurationPool()->getContainer()->get('doctrine');
-        $em = $doctrine->getEntityManager();
-        $pedidos = $em->getRepository('CasavanaCOBDBundle:Pedidos')->find($invoice->getId());
-
-
-        $pedidos = $invoice->getInvoiceproducts();
-        foreach($pedidos as $pedido_i){
-        //for ( $i = 0 ; $i < count($pedidos) ; $i ++) {
-            if($pedido_i==null){
-                $em->remove($pedido_i);
-                $em->flush();
-            }
-        }
-    }
- 
-    
 }
