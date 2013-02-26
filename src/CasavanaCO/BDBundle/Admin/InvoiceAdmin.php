@@ -13,6 +13,10 @@ class InvoiceAdmin extends Admin
     //private $doctrine;
     //private $em;
 
+   /* protected function configureRoutes(RouteCollection $collection) {
+        $collection->add('_status', $this->getRouterIdParameter().'/ispremium'); 
+    }*/
+
     private function Total_Price($invoice){
         
         /*****************************************/
@@ -66,10 +70,10 @@ class InvoiceAdmin extends Admin
         $listMapper
             ->addIdentifier('invoiceDate','date')
             ->add('price')
-            //->add('status')
+            ->add('status')
             //->add('status','choice', array('choices' => array('opened' => 'Opened', 'processing' => 'Processing', 'closed' => 'Closed')))
             ->add('_action', 'actions', array(
-                  'status' => array(
+                  'actions' => array(
                       'act' => array('template' => 'CasavanaCOBDBundle:Invoice_List:Status.html.twig'))))
             /*->add('_action', 'actions', array(
                   'actions' => array(
