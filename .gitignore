@@ -17,6 +17,8 @@ app/cache
 /app/logs/
 /app/cache/
 
+/nbproject/*
+
 # -- Configuracion de acceso a la base de datos -----
 app/config/parameters.yml
 

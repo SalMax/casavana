@@ -32,5 +32,14 @@
               <argument>CasavanaCOBDBundle</argument>
           </call>
       </service>
+      <service id="sonata.client.invoice" class="CasavanaCO\BDBundle\Client\InvoiceClient">
+          <tag name="sonata.client" manager_type="orm" group="Client" label="ClientInvoices"/>
+          <argument />
+          <argument>CasavanaCO\BDBundle\Entity\Invoice</argument>
+          <argument>SonataAdminBundle:CRUD</argument>
+          <call method="setTranslationDomain">
+              <argument>CasavanaCOBDBundle</argument>
+          </call>
+      </service>
    </services>
 </container>
