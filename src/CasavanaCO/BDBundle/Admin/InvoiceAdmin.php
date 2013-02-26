@@ -30,10 +30,11 @@ class InvoiceAdmin extends Admin
         $pedidos = $invoice->getInvoiceproducts();
         
         //Para cada pedido buscamos los productos asociados
-        for ( $i = 0 ; $i < count($pedidos) ; $i ++) {
-            if(isset($pedidos[$i])){
-                $producto = $pedidos[$i]->getProduct();
-                $suma_precio = $suma_precio + $producto->getPrice() * $pedidos[$i]->getCantidad();
+        foreach($pedidos as $pedido_i){
+        //for ( $i = 0 ; $i < count($pedidos) ; $i ++) {
+            if(isset($pedido_i)){
+                $producto = $pedido_i->getProduct();
+                $suma_precio = $suma_precio + $producto->getPrice() * $pedido_i->getCantidad();
             }
         }
         //$this->getForm()->getAttribute('cantidad');
@@ -87,9 +88,10 @@ class InvoiceAdmin extends Admin
         
         $pedidos = $invoice->getInvoiceproducts();
         //A cada pedido le asignamos el ID del invoice
-        for ( $i = 0 ; $i < count($pedidos) ; $i ++) {
-            if(isset($pedidos[$i])){
-                $producto = $pedidos[$i]->setInvoice($invoice);
+        foreach($pedidos as $pedido_i){
+        //for ( $i = 0 ; $i < count($pedidos) ; $i ++) {
+            if(isset($pedido_i)){
+                $producto = $pedido_i->setInvoice($invoice);
             }
         }
     }
@@ -103,9 +105,10 @@ class InvoiceAdmin extends Admin
         $pedidos = $invoice->getInvoiceproducts();
         
         //A cada pedido le asignamos el ID del invoice
-        for ( $i = 0 ; $i < count($pedidos) ; $i ++) {
-            if(isset($pedidos[$i])){
-                $producto = $pedidos[$i]->setInvoice($invoice);
+        foreach($pedidos as $pedido_i){
+        //for ( $i = 0 ; $i < count($pedidos) ; $i ++) {
+            if(isset($pedido_i)){
+                $producto = $pedido_i->setInvoice($invoice);
             }
         }
     }
@@ -117,17 +120,17 @@ class InvoiceAdmin extends Admin
         $doctrine = $this->getConfigurationPool()->getContainer()->get('doctrine');
         $em = $doctrine->getEntityManager();
         $pedidos = $em->getRepository('CasavanaCOBDBundle:Pedidos')->find($invoice->getId());
-/*********************************/
-        /*******************/
-        /*******************/
+
 
         $pedidos = $invoice->getInvoiceproducts();
-        for ( $i = 0 ; $i < count($pedidos) ; $i ++) {
-            if($pedidos[$i]!=null){
-                $em->remove($pedidos[$i]);
+        foreach($pedidos as $pedido_i){
+        //for ( $i = 0 ; $i < count($pedidos) ; $i ++) {
+            if($pedido_i==null){
+                $em->remove($pedido_i);
+                $em->flush();
             }
         }
-        }
+    }
  
     
 }
