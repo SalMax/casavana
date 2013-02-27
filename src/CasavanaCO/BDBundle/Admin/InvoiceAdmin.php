@@ -6,6 +6,7 @@ use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use FOS\UserBundle\Model\User as US;
 
 
 class InvoiceAdmin extends Admin
@@ -16,6 +17,8 @@ class InvoiceAdmin extends Admin
    /* protected function configureRoutes(RouteCollection $collection) {
         $collection->add('_status', $this->getRouterIdParameter().'/ispremium'); 
     }*/
+    
+    private $usuario; //Instancia de usuario actual
 
     private function Total_Price($invoice){
         
@@ -105,9 +108,11 @@ class InvoiceAdmin extends Admin
     	$currentTime = new \DateTime(date('m/d/Y h:i:s a', time()));
         $invoice->setLastmodify($currentTime);
         $invoice->setPrice($this->Total_Price($invoice));
+        //$invoice->setClient_Id();
         
-        $pedidos = $invoice->getInvoiceproducts();
-        
+        //$usuario = new US();
+
+        $pedidos = $invoice->getInvoiceproducts();        
         //A cada pedido le asignamos el ID del invoice
         foreach($pedidos as $pedido_i){
         //for ( $i = 0 ; $i < count($pedidos) ; $i ++) {
