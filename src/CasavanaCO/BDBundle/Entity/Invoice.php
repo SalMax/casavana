@@ -16,6 +16,11 @@ class Invoice{
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+    
+    /* @ORM\ManyToOne(targetEntity="CasavanaCO\BDBundle\Entity\User", inversedBy="invoice")
+    * @ORM\JoinColumn(name="id", referencedColumnName="$id_client")
+    **/
+   protected $id_client;
 
     /**
      * @ORM\OneToMany(targetEntity="CasavanaCO\BDBundle\Entity\Pedidos", mappedBy="invoice", cascade={"persist", "remove"}, orphanRemoval=true)
