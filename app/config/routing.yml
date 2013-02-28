@@ -2,12 +2,6 @@ casavana_cobd:
     resource: "@CasavanaCOBDBundle/Controller/"
     type:     annotation
     prefix:   /
-    
-
-CasavanaCOClientBundle:
-    resource: "@CasavanaCOClientBundle/Resources/config/routing.yml"
-    prefix:   /
-
 
 CasavanaCOBDBundle:
     resource: "@CasavanaCOBDBundle/Resources/config/routing.yml"
