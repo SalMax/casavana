@@ -18,10 +18,11 @@ class Invoice{
     protected $id;
     
     /**
+    * @ORM\Column(type="integer")
     * @ORM\ManyToOne(targetEntity="CasavanaCO\BDBundle\Entity\User", inversedBy="invoice")
-    * @ORM\JoinColumn(name="$client_id", referencedColumnName="id")
+    * @ORM\JoinColumn(name="clientid", referencedColumnName="id")
     */
-   protected $client_id;
+    protected $clientid;
 
     /**
      * @ORM\OneToMany(targetEntity="CasavanaCO\BDBundle\Entity\Pedidos", mappedBy="invoice", cascade={"persist", "remove"}, orphanRemoval=true)
@@ -79,23 +80,23 @@ class Invoice{
     /**
      * Set client_id
      *
-     * @param int $client_id
+     * @param integer $client_id
      * @return Invoice
      */
-    public function setClient_Id($client_id)
+    public function setClientId($clientid)
     {
-        $this->client_id = $client_id;
+        $this->clientid = $clientid;
         return $this;
     }
 
     /**
      * Get client_id
      *
-     * @return int 
+     * @return integer 
      */
-    public function getClient_Id()
+    public function getClientId()
     {
-        return $this->client_id;
+        return $this->clientid;
     }
     
     
