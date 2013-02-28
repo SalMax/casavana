@@ -30,7 +30,6 @@ class AppKernel extends Kernel
             new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'), // extend the ``FOSUserBundle``
             new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
             new Application\Sonata\UserBundle\ApplicationSonataUserBundle(),
-            new CasavanaCO\ClientBundle\CasavanaCOClientBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
