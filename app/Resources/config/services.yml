@@ -1,7 +1,0 @@
-sonata.admin.producto:
-    class: CasavanaCO\BDBundle\Admin\ProductoAdmin
-    tags:
-      - { name: sonata.admin, manager_type: orm, group: BD, label: prodcuto }
-    arguments: [null,  CasavanaCO\BDBundle\Entity\Produco, BDBundle:ProductoAdmin]
-    
-    
