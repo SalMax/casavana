@@ -8,14 +8,14 @@
           <argument>CasavanaCO\BDBundle\Entity\Category</argument>
           <argument>SonataAdminBundle:CRUD</argument>           
       </service>
-      <service id="sonata.admin.Pedidos" class="CasavanaCO\BDBundle\Admin\PedidosAdmin">
+      <service id="sonata.admin.pedidos" class="CasavanaCO\BDBundle\Admin\PedidosAdmin">
           <tag name="sonata.admin" manager_type="orm" group="Pedidos" label="Pedidos"/>
           <argument />
           <argument>CasavanaCO\BDBundle\Entity\Pedidos</argument>
           <argument>SonataAdminBundle:CRUD</argument>           
       </service>
       <service id="sonata.admin.product" class="CasavanaCO\BDBundle\Admin\ProductAdmin">
-          <tag name="sonata.admin" manager_type="orm" group="Products" label="Products"/>
+          <tag name="sonata.admin" manager_type="orm" group="Products" label="Products" public="true"/>
           <argument />
           <argument>CasavanaCO\BDBundle\Entity\Product</argument>
           <argument>SonataAdminBundle:CRUD</argument>

@@ -16,6 +16,7 @@ app/cache
 /vendor/
 /app/logs/
 /app/cache/
+/app/boostrap.php.cache
 
 /nbproject/*
 
@@ -96,3 +97,15 @@ Icon
 ._*
 .Spotlight-V100
 .Trashes
+
+app/bootstrap.php.cache
+
+app/bootstrap.php.cache
+
+app/bootstrap.php.cache
+
+*.cache
+
+composer.lock
+
+composer.lock
