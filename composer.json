@@ -20,10 +20,9 @@
         "jms/di-extra-bundle": "1.1.*",
         "kriswallsmith/assetic": "1.1.*@dev",
         "sonata-project/cache-bundle": "dev-master",
-        "sonata-project/admin-bundle": "dev-master",
-        "sonata-project/doctrine-orm-admin-bundle": "dev-master",
-        "sonata-project/user-bundle" : "dev-master",
-        "sonata-project/doctrine-orm-admin-bundle" : "dev-master",
+        "sonata-project/admin-bundle": "2.1.*@dev",
+        "sonata-project/doctrine-orm-admin-bundle": "2.1.*@dev",
+        "sonata-project/user-bundle" : "2.1.*@dev",
         "friendsofsymfony/user-bundle": "*",
         "sonata-project/easy-extends-bundle": "dev-master"
     },
