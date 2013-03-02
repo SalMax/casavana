@@ -29,20 +29,11 @@ security:
                 failure_path:   null
             logout:
                 path:           /admin/logout
+                target:         /admin/login
             anonymous:    true
+            #access_denied_url: /admin/login
+            #access_denied_handler: some.service.id
         # -> end custom configuration
-        
-        client:
-          pattern:      /client(.*)
-          form_login:
-              provider:       fos_userbundle
-              login_path:     /client/login
-              use_forward:    false
-              check_path:     /client/login_check
-              failure_path:   null
-          logout:
-              path:           /client/logout
-          anonymous:    true
 
 
         # defaut login area for standard users
@@ -56,7 +47,7 @@ security:
                 failure_path:   null
             logout:       true
             anonymous:    true
-
+    
     access_control:
         # URL of FOSUserBundle which need to be available to anonymous users
         - { path: ^/_wdt, role: IS_AUTHENTICATED_ANONYMOUSLY }
