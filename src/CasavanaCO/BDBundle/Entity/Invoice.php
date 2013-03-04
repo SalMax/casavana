@@ -62,7 +62,7 @@ class Invoice{
      */
     public function __construct()
     {
-        $this->orders = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->invoiceproducts = new \Doctrine\Common\Collections\ArrayCollection();
 
     }
     

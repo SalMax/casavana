@@ -1,4 +1,5 @@
 #!/bin/bash
-php ../composer_installer.php
+cd ..
+php composer_installer.php
 echo "Pulse una tecla para continuar..."
 read -s

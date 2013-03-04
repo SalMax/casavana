@@ -6,18 +6,10 @@ use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Symfony\Component\Security\Core\SecurityContext;
-use Symfony\Component\Security\Core\User\User as US;
 
 
 class InvoiceAdmin extends Admin
 {
-    //private $doctrine;
-    //private $em;
-
-   /* protected function configureRoutes(RouteCollection $collection) {
-        $collection->add('_status', $this->getRouterIdParameter().'/ispremium'); 
-    }*/
 
     private function Total_Price($invoice){
         
@@ -74,9 +66,9 @@ class InvoiceAdmin extends Admin
             ->add('price')
             ->add('status')
             //->add('status','choice', array('choices' => array('opened' => 'Opened', 'processing' => 'Processing', 'closed' => 'Closed')))
-            ->add('_action', 'actions', array(
+            /*->add('_action', 'actions', array(
                   'actions' => array(
-                      'act' => array('template' => 'CasavanaCOBDBundle:Invoice_List:Status.html.twig'))))
+                      'act' => array('template' => 'CasavanaCOBDBundle:Invoice_List:Status.html.twig'))))*/
             /*->add('_action', 'actions', array(
                   'actions' => array(
 		        'edit' => array(),

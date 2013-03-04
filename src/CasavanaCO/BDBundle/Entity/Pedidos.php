@@ -8,38 +8,38 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * @ORM\Entity
  */
-class Pedidos
-{
+class Pedidos {
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
     /**
      * @ORM\Column(type="string", length=255)
      */
     protected $cantidad;
-    
+
     /**
-		 * @ORM\ManyToOne(targetEntity="CasavanaCO\BDBundle\Entity\Product", inversedBy="pedidos")
-		 * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
-		 **/
-		protected $product;
-		
-		/**
-		 * @ORM\ManyToOne(targetEntity="CasavanaCO\BDBundle\Entity\Invoice", inversedBy="invoiceproducts")
-		 * @ORM\JoinColumn(name="invoice_id", referencedColumnName="id")
-		 **/
-		 protected $invoice;
+     * @ORM\ManyToOne(targetEntity="CasavanaCO\BDBundle\Entity\Product", inversedBy="pedidos")
+     * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
+     * */
+    protected $product;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="CasavanaCO\BDBundle\Entity\Invoice", inversedBy="invoiceproducts")
+     * @ORM\JoinColumn(name="invoice_id", referencedColumnName="id")
+     * */
+    protected $invoice;
 
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -49,10 +49,9 @@ class Pedidos
      * @param \CasavanaCO\BDBundle\Entity\Product $product
      * @return Pedidos
      */
-    public function setProduct(\CasavanaCO\BDBundle\Entity\Product $product = null)
-    {
+    public function setProduct(\CasavanaCO\BDBundle\Entity\Product $product = null) {
         $this->product = $product;
-    
+
         return $this;
     }
 
@@ -61,8 +60,7 @@ class Pedidos
      *
      * @return \CasavanaCO\BDBundle\Entity\Product 
      */
-    public function getProduct()
-    {
+    public function getProduct() {
         return $this->product;
     }
 
@@ -72,10 +70,9 @@ class Pedidos
      * @param string $cantidad
      * @return Pedidos
      */
-    public function setCantidad($cantidad)
-    {
+    public function setCantidad($cantidad) {
         $this->cantidad = $cantidad;
-    
+
         return $this;
     }
 
@@ -84,8 +81,7 @@ class Pedidos
      *
      * @return string 
      */
-    public function getCantidad()
-    {
+    public function getCantidad() {
         return $this->cantidad;
     }
 
@@ -95,10 +91,9 @@ class Pedidos
      * @param \CasavanaCO\BDBundle\Entity\Invoice $invoice
      * @return Pedidos
      */
-    public function setInvoice(\CasavanaCO\BDBundle\Entity\Invoice $invoice = null)
-    {
+    public function setInvoice(\CasavanaCO\BDBundle\Entity\Invoice $invoice = null) {
         $this->invoice = $invoice;
-    
+
         return $this;
     }
 
@@ -107,8 +102,8 @@ class Pedidos
      *
      * @return \CasavanaCO\BDBundle\Entity\Invoice 
      */
-    public function getInvoice()
-    {
+    public function getInvoice() {
         return $this->invoice;
     }
+
 }

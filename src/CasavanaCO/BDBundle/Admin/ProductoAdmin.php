@@ -12,7 +12,7 @@ class ProductoAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-        		->add('dniGestor', 'sonata_type_model', array())
+        ->add('dniGestor', 'sonata_type_model', array())
             ->add('nombre')
             ->add('descripcion')
             ->add('coste')
