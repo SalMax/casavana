@@ -1,6 +1,6 @@
 _index:
-    pattern:  /client
-    defaults: { _controller: CasavanaCOBDBundle:Casavana:index }
+    pattern:  /
+    defaults: { _controller: CasavanaCOBDBundle:Controller:CasavanaController }
 
 admin:
     resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
