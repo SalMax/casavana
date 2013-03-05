@@ -1,5 +1,5 @@
 _welcome:
-    pattern:  /
+    pattern:  /welcome_demo
     defaults: { _controller: AcmeDemoBundle:Welcome:index }
 
 _demo_secured:
@@ -25,11 +25,6 @@ _configurator:
 
 _main:
     resource: routing.yml
-
-casavana_cobd:
-    resource: "@CasavanaCOBDBundle/Controller/"
-    type:     annotation
-    prefix:   / 
 
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
