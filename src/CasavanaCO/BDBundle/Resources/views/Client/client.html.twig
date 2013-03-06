@@ -14,19 +14,14 @@
                         <span class="icon-bar"></span>
                     </a>
                     <a href="/" class="brand">Casavana Central Order</a>
-                    <div class="navbar-text pull-right"> <a href="logout" title="Logout">Logout</a> </div>
+                    <div class="navbar-text pull-right">Logged as {{ app.user.username }} - <a href="logout" title="Logout">Logout</a> </div>
                 </div>
             </div>
         </div>
 
         <div class="container-fluid">
-            
-					<h1>CASAVANA CENTRAL ORDER</h1>
-					
 					<div class="page-header">
-					  <h1>
-					    Client: <a href="logout" title="Logout">Logout</a>
-					  </h1>
+					    <h1>CASAVANA CENTRAL ORDER :: Client Dashboard</h1>
 					</div>
 					
 					{{ sonata_block_render({

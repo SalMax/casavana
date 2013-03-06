@@ -1,13 +1,43 @@
 {% extends '::bootstrap.html.twig' %}
 
  {% block body %}
- <h1>CASAVANA CENTRAL ORDER</h1>
+ 
+ <body class="sonata-bc ">
+        {# initialize block value #}
 
-<div clas="container-fluid">
-	<div class="page-header">
-	  <h1>
-	    Admin: <a href="logout" title="Logout">Logout</a>
-	  </h1>
-	</div>
-</div>
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a href="/" class="brand">Casavana Central Order</a>
+                    <div class="navbar-text pull-right">Logged as {{ app.user.username }} - <a href="logout" title="Logout">Logout</a> </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+					<div class="page-header">
+					    <h1>CASAVANA CENTRAL ORDER :: Manager Dashboard</h1>
+					</div>
+					
+					{{ sonata_block_render({
+					    'type': 'sonata.block.service.product',
+					    'settings': {
+					        'title': 'Sonata Project\'s Feeds',
+					        'url': 'http://sonata-project.org/blog/archive.rss'
+					    }
+					}) }}
+					
+        </div>
+    </body>
+
+ 
+ 
+
  {% endblock %}
+ 
+

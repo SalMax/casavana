@@ -29,7 +29,7 @@ class CasavanaController extends Controller
 			return $this->render("CasavanaCOBDBundle:Error:rrlogin.html.twig");
 		}
 */
-		return $this->render("CasavanaCOBDBundle:Error:rrlogin.html.twig");
+		return $this->render("CasavanaCOBDBundle:Casavana:index.html.twig");
 		
     }
 }

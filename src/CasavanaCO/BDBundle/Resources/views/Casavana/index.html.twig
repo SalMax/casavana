@@ -1,0 +1,12 @@
+{% extends '::bootstrap.html.twig' %}
+
+{% block body %}
+    <div class="connection" style="padding: 10px 20px">
+    	<h1 style="text-align:center">Casavana Central Order</h1>
+    	<p style="text-align: center; margin:15px 0px">Bienvenido al sistema de gestión de pedidos de Casavana. Por favor, indentifíquese antes de continuar.<p/>
+    	<p class="big-buttons" style="text-align: center;">
+    		<a href="{{ path('client') }}" class="btn btn-large btn-primary" style="margin-right: 15px;">Restaurant</a>
+    		<a href="{{ path('manager') }}" class="btn btn-large btn-primary" style="margin-left: 15px;">Manager</a>
+    	</p>
+    </div>
+{% endblock %}
