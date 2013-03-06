@@ -79,7 +79,11 @@ sonata_block:
         sonata.block.service.text:   ~
         sonata.block.service.action: ~
         sonata.block.service.rss:    ~
+        sonata.block.service.product: ~
+        
         sonata.admin.product: ~
+        
+        #casavana.service.product: ~
  
         # Some specific block from the SonataMediaBundle
         #sonata.media.block.media:
@@ -166,11 +170,4 @@ sonata_doctrine_orm_admin:
                 bigint:     SonataAdminBundle:CRUD:base_show_field.html.twig
                 integer:    SonataAdminBundle:CRUD:base_show_field.html.twig
                 decimal:    SonataAdminBundle:CRUD:base_show_field.html.twig
-  
-services:
-    sonata.admin.product:
-        class: CasavanaCO\BDBundle\Admin\ProductAdmin
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: "General", label: "Products" }
-        arguments: [ null, CasavanaCO\BDBundle\Entity\Product, SonataAdminBundle:CRUD ]
         

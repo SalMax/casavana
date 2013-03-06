@@ -1,0 +1,10 @@
+
+{% extends '::bootstrap.html.twig' %}
+
+{% block body %}
+    <div class="connection" style="padding: 10px 20px">
+    	<h1 style="text-align:center">No encontrado</h1>
+    	<p style="text-align: center; margin:15px 0px">La dirección que está buscando no se encuentra en este servidor.<p/>
+    	<p style="text-align: center;"><a href="{{ path('_index') }}" class="btn btn-large btn-primary">Volver al inicio</a></p>
+    </div>
+{% endblock %}

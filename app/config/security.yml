@@ -40,8 +40,20 @@ security:
             anonymous:    true
             #access_denied_url: /admin/login
             #access_denied_handler: some.service.id
+            
         # -> end custom configuration
-
+#         client:
+#             pattern:      /client
+#             form_login:
+#                 provider:       fos_userbundle
+#                 login_path:     /login
+#                 use_forward:    false
+#                 check_path:     /login_check
+#                 failure_path:   null
+#             logout:
+#                 path:           /logout
+#                 target:         /
+#             #anonymous:    false
 
         # defaut login area for standard users
         main:
@@ -53,9 +65,13 @@ security:
                 check_path:     /login_check
                 failure_path:   null
             logout:       true
-            anonymous:    true
+            anonymous: ~
     
     access_control:
+
+        - { path: ^/manager, role: ROLE_ADMIN }
+        - { path: ^/client, role: ROLE_USER }
+    
         # URL of FOSUserBundle which need to be available to anonymous users
         - { path: ^/_wdt, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/_profiler, role: IS_AUTHENTICATED_ANONYMOUSLY }
@@ -75,6 +91,6 @@ security:
         # Change these rules to adapt them to your needs
         #- { path: ^/admin, role: [ROLE_ADMIN, ROLE_SONATA_ADMIN] }
         - { path: ^/admin, role: [ROLE_ADMIN, ROLE_SONATA_ADMIN] }
-        - { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/.*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         
-        - { path: ^/client, role: [ROLE_ADMIN, ROLE_SONATA_ADMIN] }
+        

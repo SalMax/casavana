@@ -15,6 +15,7 @@ class CasavanaController extends Controller
      */
     public function indexAction(){
 	
+/*
         if($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')){
 			return $this->render("CasavanaCOBDBundle:Dashboard:dashboard.html.twig");
 		}      
@@ -27,6 +28,8 @@ class CasavanaController extends Controller
 		else{
 			return $this->render("CasavanaCOBDBundle:Error:rrlogin.html.twig");
 		}
+*/
+		return $this->render("CasavanaCOBDBundle:Error:rrlogin.html.twig");
 		
     }
 }

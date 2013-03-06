@@ -1,0 +1,11 @@
+
+{% extends '::bootstrap.html.twig' %}
+
+{% block body %}
+    <div class="connection" style="padding: 10px 20px">
+    	<h1 style="text-align:center">Acceso denegado</h1>
+    	<p style="text-align: center; margin:15px 0px">Usted no tiene permiso para entrar en este área.<p/>
+    	<p style="text-align: center;"><a href="{{ path('_index') }}" class="btn btn-large btn-primary">Volver al inicio</a></p>
+    </div>
+{% endblock %}
+
