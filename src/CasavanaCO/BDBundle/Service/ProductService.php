@@ -17,7 +17,8 @@ class ProductService extends BaseBlockService
     {
         $settings = array_merge($this->getDefaultSettings(), $block->getSettings());
 
-        return $this->renderResponse('SonataBlockBundle:Block:block_core_text.html.twig', array(
+/*         return $this->renderResponse('SonataBlockBundle:Block:block_core_text.html.twig', array( */
+        return $this->renderResponse('CasavanaCOBDBundle:Client:list.html.twig', array(
             'block'     => $block,
             'settings'  => $settings
         ), $response);
@@ -48,7 +49,7 @@ class ProductService extends BaseBlockService
      */
     public function getName()
     {
-        return 'Text (core)';
+        return 'Productos';
     }
 
     /**

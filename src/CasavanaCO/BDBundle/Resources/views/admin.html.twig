@@ -79,13 +79,20 @@ file that was distributed with this source code.
                     </a>
 
                     {% if admin_pool is defined %}
-                        <div class="navbar-text pull-right">{% include admin_pool.getTemplate('user_block') %}</div>
+                        <div class="navbar-text pull-right">{{ app.user.username }} - <a href="logout" title="Logout">Logout</a></div>
 
                         {% block logo %}
+                            {% if app.security.token and is_granted('ROLE_MANAGER') %}
                             <a href="{{ url('sonata_admin_dashboard') }}" class="brand">
-                                <img src="{{ asset(admin_pool.titlelogo) }}"  alt="{{ admin_pool.title }}" />
-                                {{ admin_pool.title }}
+                                Manager Casavana Admin
                             </a>
+                            {% else %}
+                                {% if app.security.token and is_granted('ROLE_USER') %}
+                                <a href="{{ url('sonata_admin_dashboard') }}" class="brand">
+                                    Client Casavana Admin
+                                </a>
+                                {% endif %}
+                            {% endif %}
                         {% endblock %}
 
                         <div class="nav-collapse">
@@ -116,30 +123,7 @@ file that was distributed with this source code.
         </div>
 
         <div class="container-fluid">
-            {% if _breadcrumb is not empty or action is defined %}
-                <ul class="breadcrumb">
-                    {% if _breadcrumb is empty %}
-                        {% if action is defined %}
-                            {% for label, uri in admin.breadcrumbs(action) %}
-                                {% if not loop.last  %}
-                                    <li>
-                                        {% if uri is not empty %}
-                                            <a href="{{ uri }}">{{ label }}</a>
-                                        {% else %}
-                                            {{ label }}
-                                        {% endif %}
-                                        <span class="divider">/</span>
-                                    </li>
-                                {% else %}
-                                    <li class="active">{{ label }}</li>
-                                {% endif %}
-                            {% endfor %}
-                        {% endif %}
-                    {% else %}
-                        {{ _breadcrumb|raw }}
-                    {% endif %}
-                </ul>
-            {% endif %}
+            
 
             {% block notice %}
                 {% for notice_level in ['success','error','info', 'warning'] %}

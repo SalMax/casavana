@@ -1,8 +1,18 @@
 <?php
 
-namespace CasavanaCO\BDBundle\Entity;
+/**
+ * This file is part of the <name> project.
+ *
+ * (c) <yourname> <youremail>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace Application\Sonata\UserBundle\Entity;
 
 use Sonata\UserBundle\Entity\BaseUser as BaseUser;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -12,9 +22,7 @@ use Doctrine\ORM\Mapping as ORM;
 class User extends BaseUser
 {
     /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @var integer $id
      */
     protected $id;
 
@@ -27,5 +35,4 @@ class User extends BaseUser
     {
         return $this->id;
     }
-
 }

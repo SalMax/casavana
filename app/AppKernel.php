@@ -19,7 +19,6 @@ class AppKernel extends Kernel
             new JMS\AopBundle\JMSAopBundle(),
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
-            new CasavanaCO\BDBundle\CasavanaCOBDBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Sonata\jQueryBundle\SonatajQueryBundle(),
             new Sonata\BlockBundle\SonataBlockBundle(),
@@ -27,9 +26,10 @@ class AppKernel extends Kernel
             new Sonata\AdminBundle\SonataAdminBundle(),
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
-            new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'), // extend the ``FOSUserBundle``
             new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
-            //new Application\Sonata\UserBundle\ApplicationSonataUserBundle(),
+            new CasavanaCO\BDBundle\CasavanaCOBDBundle(),
+            new Application\Sonata\UserBundle\ApplicationSonataUserBundle(),
+            new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'), // extend the ``FOSUserBundle``
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

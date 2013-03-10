@@ -32,7 +32,7 @@
               <argument>CasavanaCOBDBundle</argument>
           </call>
       </service>
-	  <service id="sonata.admin.user" class="CasavanaCO\BDBundle\Admin\UserAdmin">
+<!--	  <service id="sonata.admin.user" class="CasavanaCO\BDBundle\Admin\UserAdmin">
           <tag name="sonata.admin" manager_type="orm" group="User" label="User"/>
           <argument />
           <argument>CasavanaCO\BDBundle\Entity\User</argument>
@@ -40,7 +40,7 @@
           <call method="setTranslationDomain">
               <argument>CasavanaCOBDBundle</argument>
           </call>
-      </service>
+      </service>-->
       
    </services>
 </container>

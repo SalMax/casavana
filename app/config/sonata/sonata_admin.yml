@@ -1,0 +1,44 @@
+sonata_admin:
+    title:      Casavana Central Order
+#     title_logo: /bundles/sonataadmin/logo_title.png
+    templates:
+        
+        #Casavana
+        layout:  CasavanaCOBDBundle::admin.html.twig
+        # default global templates
+        #layout:  SonataAdminBundle::standard_layout.html.twig
+        ajax:    SonataAdminBundle::ajax_layout.html.twig
+ 
+        # default actions templates, should extend a global templates
+        list:    SonataAdminBundle:CRUD:list.html.twig
+        show:    SonataAdminBundle:CRUD:show.html.twig
+        edit:    SonataAdminBundle:CRUD:edit.html.twig
+    dashboard:
+        blocks:
+            # display a dashboard block
+            - { position: left, type: sonata.admin.block.admin_list }
+            # - { position: left,  type: sonata.admin.block.admin_list, settings: { groups: [sonata_page1, sonata_page2] } }
+#             - { position: right, type: sonata.admin.block.admin_list, settings: { groups: [sonata_page3] } }
+        # groups:
+#             sonata_page1:
+#                 label: Admin
+#                 items: 
+#                     - sonata.admin.product
+#             sonata_page2:
+#                 items: ~
+#             sonata_page3:
+#                 items:
+#                     - sonata.admin.product
+    security:
+        handler: sonata.admin.security.handler.acl
+        # acl security information
+        information:
+            GUEST:    [VIEW, LIST]
+            STAFF:    [EDIT, LIST, CREATE]
+            EDITOR:   [OPERATOR, EXPORT]
+            ADMIN:    [MASTER]
+        # permissions not related to an object instance and also to be available when objects do not exist
+        # the DELETE admin permission means the user is allowed to batch delete objects
+        admin_permissions: [CREATE, LIST, DELETE, UNDELETE, EXPORT, OPERATOR, MASTER]
+        # permission related to the objects
+        object_permissions: [VIEW, EDIT, DELETE, UNDELETE, OPERATOR, MASTER, OWNER]

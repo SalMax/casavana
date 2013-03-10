@@ -10,7 +10,7 @@ use Sonata\AdminBundle\Show\ShowMapper;
 use FOS\UserBundle\Model\UserManagerInterface;
 
 class UserAdmin extends Admin {
-
+    
     protected function configureFormFields(FormMapper $formMapper) {
         $formMapper
                 ->with('General')
