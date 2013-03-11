@@ -17,12 +17,15 @@ class ClientController extends Controller {
      * @Template()
      */
     public function indexAction() {
+        return $this->List_Client_Invoices();
+    }
+
+    public function List_Client_Invoices() {
         //Preparamos conexion
         $doctrine = $this->getDoctrine();
         $em = $doctrine->getEntityManager();
-        $invoices = $em->getRepository('CasavanaCOBDBundle:Invoice')->findAll();
-        
-        return $this->render("CasavanaCOBDBundle:Client:client.html.twig", array('invoices' => $invoices));
+        $invoices = $em->getRepository('CasavanaCOBDBundle:Invoice')->findBy(array('clientid' => $this->getUser()->getId()));
+        return $this->render("CasavanaCOBDBundle:Client:client_my_invoices.html.twig", array('invoices' => $invoices));
     }
 
 }

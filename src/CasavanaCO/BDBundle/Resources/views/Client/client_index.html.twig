@@ -1,0 +1,69 @@
+{% extends '::bootstrap.html.twig' %}
+
+ {% block body %}
+
+<body class="sonata-bc ">
+        {# initialize block value #}
+
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a href="{{ path('client') }}" class="brand">Casavana Central Order</a>
+                    <div class="navbar-text pull-right">Logged as {{ app.user.username }} - <a href="logout" title="Logout">Logout</a> </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="page-header">
+                <h1>CASAVANA CENTRAL ORDER :: Client Dashboard</h1>
+            </div>
+        </div>
+
+
+        {#Botones del cliente#}
+        <h1>Acciones</h1>
+        <div class="container-fluid">
+            <p style="text-align:center">
+                <a href="admin/casavanaco/bd/category/list" class="btn btn-large btn-primary">Categorías</a>
+                <a href="admin/casavanaco/bd/product/list" class="btn btn-large btn-primary">Productos</a>
+                <a href="admin/casavanaco/bd/invoice/list" class="btn btn-large btn-primary">Invoices</a>
+            </p>		
+        </div>
+
+
+        <h1>Invoice list</h1>
+        <div class="sonata-ba-list">
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <th>ID</th>
+                    <th>Client ID</th>
+                    <th>Price</th>
+                    <th>Invoice date</th>
+                    <th>Status</th>
+                </tr>
+            {% for invoice in invoices %}
+                <tr>
+                    <td>{{ invoice.id }}</td>
+                    <td>{{ invoice.clientid }}</td>
+                    <td>{{ invoice.price }}</td>
+                    <td>{{ invoice.invoiceDate | date('d-m-Y') }}</td>
+                    <td>{{ invoice.status }}</td>
+                </tr>
+            {% endfor %}
+            </table>
+        </div>
+
+    </body>
+
+
+
+
+ {% endblock %}
+
+
