@@ -14,32 +14,38 @@
                         <span class="icon-bar"></span>
                     </a>
                     <a href="{{ path('client') }}" class="brand">Casavana Central Order</a>
-                    <div class="navbar-text pull-right">{{invoices[0].price}}Logged as {{ app.user.username }} - <a href="logout" title="Logout">Logout</a> </div>
+                    <div class="navbar-text pull-right">Logged as {{ app.user.username }} - <a href="logout" title="Logout">Logout</a> </div>
                 </div>
             </div>
         </div>
 
         <div class="container-fluid">
             <div class="page-header">
-                <h1>CASAVANA CENTRA ORDER :: Client Dashboard</h1>
+                <h1>CASAVANA CENTRAL ORDER :: Client Dashboard</h1>
             </div>
         </div>
 
         <h1>Invoice list</h1>
-        <table border="1">
-            <tr>
-                <th>ID</th>
-                <th>Price</th>
-                <th>Fecha de Creacion</th>
-            </tr>
+        <div class="sonata-ba-list">
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <th>ID</th>
+                    <th>Client ID</th>
+                    <th>Price</th>
+                    <th>Invoice date</th>
+                    <th>Status</th>
+                </tr>
             {% for invoice in invoices %}
-            <tr>
-                <td>{{ invoice.id }}</td>
-                <td>{{ invoice.price }}</td>
-                <td>{{ invoice.date | date('d-m-Y') }}</td>
-            </tr>
+                <tr>
+                    <td>{{ invoice.id }}</td>
+                    <td>{{ invoice.clientid }}</td>
+                    <td>{{ invoice.price }}</td>
+                    <td>{{ invoice.invoiceDate | date('d-m-Y') }}</td>
+                    <td>{{ invoice.status }}</td>
+                </tr>
             {% endfor %}
-        </table>
+            </table>
+        </div>
 
     </body>
 
