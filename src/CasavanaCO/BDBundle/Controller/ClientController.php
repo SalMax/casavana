@@ -4,9 +4,13 @@ namespace CasavanaCO\BDBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Doctrine\ORM\EntityManager;
+use Symfony\Component\Form\ResolvedFormTypeInterface;
+use Symfony\Component\Form\FormTypeInterface;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sonata\AdminBundle\Form\FormMapper;
+use Doctrine\ORM\EntityManager;
+        
 class ClientController extends Controller {
 
     private $hola;
