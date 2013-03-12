@@ -17,7 +17,7 @@ sonata_admin:
         blocks:
             # display a dashboard block
             #- { position: left, type: sonata.admin.block.admin_list }
-             - { position: left,  type: sonata.admin.block.admin_list, settings: { groups: [sonata_page1, sonata_page2] } }
+             - { position: left,  type: sonata.admin.block.admin_list, settings: { groups: [sonata_page1, sonata_page2, sonata_page3] } }
 #             - { position: right, type: sonata.admin.block.admin_list, settings: { groups: [sonata_page3] } }
         groups:
              sonata_page1:
@@ -30,6 +30,10 @@ sonata_admin:
                  label: User Admin options
                  items:
                      - sonata.user.admin.user
+             sonata_page3:
+                 label: Client Area
+                 items:
+                     - sonata.admin.invoiceclient
     security:
 #        handler: sonata.admin.security.handler.acl
 #        # acl security information
