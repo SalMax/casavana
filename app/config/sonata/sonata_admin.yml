@@ -1,13 +1,14 @@
 sonata_admin:
     title:      Casavana Central Order
-#     title_logo: /bundles/sonataadmin/logo_title.png
+    title_logo: bundles/casavanacobd/img/casavana_logo.png
     templates:
         
         #Casavana
-        #layout:  CasavanaCOBDBundle::admin.html.twig
+        layout:  CasavanaCOBDBundle::standard_layout.html.twig
+        ajax:    CasavanaCOBDBundle::ajax_layout.html.twig
         # default global templates
-        layout:  SonataAdminBundle::standard_layout.html.twig
-        ajax:    SonataAdminBundle::ajax_layout.html.twig
+        #layout:  SonataAdminBundle::standard_layout.html.twig
+        #ajax:    SonataAdminBundle::ajax_layout.html.twig
  
         # default actions templates, should extend a global templates
         list:    SonataAdminBundle:CRUD:list.html.twig

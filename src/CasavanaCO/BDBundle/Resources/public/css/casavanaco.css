@@ -1,3 +1,68 @@
+.casavana_index{
+    font-family: Trebuchet MS, Verdana, Arial, Helvetica, sans-serif;
+    margin: 0px;
+    padding: 0px;
+    background-image: url(../img/body-bg.png);
+    background-repeat: repeat-x;
+    background-position: top left;
+    background-color: #312824;
+    color: #000000;
+}
+
+.casavana_index h1{
+    color: rgb(255, 255, 255);
+    display: block;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 120px;
+    font-weight: bold;
+    height: 120px;
+    letter-spacing: -2px;
+    line-height: 120px;
+    margin-bottom: 10px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 10px;
+    text-align: left;
+    text-rendering: optimizelegibility;
+    text-shadow: rgba(0, 0, 0, 0.4) 0px 1px 3px, rgba(0, 0, 0, 0.0745098) 0px 0px 30px;
+}
+
+.casavana_index h2{
+    color: rgb(255, 255, 255);
+    display: block;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 25px;
+    font-weight: 200;
+    line-height: 32px;
+    margin-bottom: 16px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    text-align: left;
+    text-shadow: rgba(0, 0, 0, 0.4) 0px 1px 3px, rgba(0, 0, 0, 0.0745098) 0px 0px 30px;
+}
+
+.connection{
+    background-color: #FFFFFF;
+}
+
+.index-header {
+    overflow: hidden;
+    background-image: url(../images/header-bg.jpg);
+    background-repeat: no-repeat;
+    height: 340px;
+}
+
+.index-logo{
+    float: left;
+    display: block;
+    width: 292px;
+    height: 292px;
+    background-image: url(../img/logo_casavana.png);
+    background-repeat: no-repeat;
+    text-indent: -9999px;
+}
+
 .big-buttons .btn {
   padding: 19px 24px;
   font-size: 24px;
