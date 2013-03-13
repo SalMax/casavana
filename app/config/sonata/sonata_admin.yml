@@ -19,7 +19,7 @@ sonata_admin:
             # display a dashboard block
             #- { position: left, type: sonata.admin.block.admin_list }
              - { position: left,  type: sonata.admin.block.admin_list, settings: { groups: [sonata_page1, sonata_page2, sonata_page3] } }
-             - { position: right, type: sonata.block.service.text, settings: { content: "<h2>Welcome to Casavana Central Order</h2> <p>This is a <code>inline help sction</code>.</p><p>We can also use this section to notice about important notices to the restaurants.</p>"  } }
+             - { position: right, type: sonata.block.service.text, settings: { content: "<h2>Welcome to Casavana Central Order</h2> <p>This is a <code>inline help sction</code>.</p><p>We can also use this section to notice about important news to the restaurants.</p>"  } }
         groups:
              sonata_page1:
                  label: Manager options
