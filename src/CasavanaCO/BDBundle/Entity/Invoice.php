@@ -32,7 +32,7 @@ class Invoice{
     /**
      * @var float
      *
-     * @ORM\Column(type="decimal", nullable=false)
+     * @ORM\Column(type="decimal", scale=2, nullable=false)
      */
     protected $price;
     

@@ -40,26 +40,26 @@ class Product
     /**
      * @var float
      *
-     * @ORM\Column(name="cost", type="decimal", nullable=false)
+     * @ORM\Column(name="cost", type="decimal", scale=2, nullable=false)
      */
     protected $cost;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="margin", type="decimal", nullable=false)
+     * @ORM\Column(name="margin", type="decimal", scale=2, nullable=false)
      */
     protected $margin;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="price", type="decimal", nullable=false)
+     * @ORM\Column(name="price", type="decimal", scale=2, nullable=false)
      */
     protected $price;
 	
 	/**
-     * @ORM\Column(name="price_by", type="string", length=255, nullable=false)
+     * @ORM\Column(name="price_by", type="string", scale=2, length=255, nullable=false)
      */
     protected $price_by;
     

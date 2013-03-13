@@ -13,13 +13,13 @@ sonata_admin:
         # default actions templates, should extend a global templates
         list:    SonataAdminBundle:CRUD:list.html.twig
         show:    SonataAdminBundle:CRUD:show.html.twig
-        edit:    SonataAdminBundle:CRUD:edit.html.twig
+        edit:    CasavanaCOBDBundle:CRUD:edit.html.twig
     dashboard:
         blocks:
             # display a dashboard block
             #- { position: left, type: sonata.admin.block.admin_list }
              - { position: left,  type: sonata.admin.block.admin_list, settings: { groups: [sonata_page1, sonata_page2, sonata_page3] } }
-#             - { position: right, type: sonata.admin.block.admin_list, settings: { groups: [sonata_page3] } }
+             - { position: right, type: sonata.block.service.text, settings: { content: "<h2>Welcome to Casavana Central Order</h2> <p>This is a <code>inline help sction</code>.</p><p>We can also use this section to notice about important notices to the restaurants.</p>"  } }
         groups:
              sonata_page1:
                  label: Manager options
@@ -31,10 +31,10 @@ sonata_admin:
                  label: User Admin options
                  items:
                      - sonata.user.admin.user
-             sonata_page3:
-                 label: Client Area
-                 items:
-                     - sonata.admin.invoiceclient
+#             sonata_page3:
+#                 label: Client Area
+#                 items:
+#                     - sonata.admin.invoiceclient
     security:
 #        handler: sonata.admin.security.handler.acl
 #        # acl security information
