@@ -53,12 +53,13 @@ class InvoiceAdmin extends Admin {
     }
 
     protected function configureListFields(ListMapper $listMapper) {
-
+        
         $listMapper
                 ->addIdentifier('id')
-                ->add('_action', 'actions', array(
+                /*->add('_action', 'actions', array(
                     'actions' => array(
-                        'act' => array('template' => 'CasavanaCOBDBundle:Invoice_List:invoice_list_client.html.twig'))))
+                        'act' => array('template' => 'CasavanaCOBDBundle:Invoice_List:invoice_list_client.html.twig'))))*/
+                ->add('getclientname', null, array('label' => 'Client'))
                 ->addIdentifier('invoiceDate', 'date')
                 ->add('price')
                 ->add('status')
@@ -78,6 +79,13 @@ class InvoiceAdmin extends Admin {
         $invoice->setInvoiceDate($currentTime);
         $invoice->setLastmodify($currentTime);
         $invoice->setPrice($this->Total_Price($invoice));
+        
+        //Preparamos conexion
+        $doctrine = $this->getConfigurationPool()->getContainer()->get('doctrine');
+        $em = $doctrine->getEntityManager();
+        $cliente = $em->getRepository('ApplicationSonataUserBundle:User')->find(1);
+        $cliente = $cliente->getFirstname() . " " . $cliente->getLastname();
+        $invoice->setclientname($cliente);
 
         $invoice->setClientId($this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser()->getId());
 
@@ -95,6 +103,13 @@ class InvoiceAdmin extends Admin {
         $currentTime = new \DateTime(date('m/d/Y h:i:s a', time()));
         $invoice->setLastmodify($currentTime);
         $invoice->setPrice($this->Total_Price($invoice));
+        
+        //Preparamos conexion
+        $doctrine = $this->getConfigurationPool()->getContainer()->get('doctrine');
+        $em = $doctrine->getEntityManager();
+        $cliente = $em->getRepository('ApplicationSonataUserBundle:User')->find(1);
+        $cliente = $cliente->getFirstname() . " " . $cliente->getLastname();
+        $invoice->setclientname($cliente);
 
         $invoice->setClientId($this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser()->getId());
 

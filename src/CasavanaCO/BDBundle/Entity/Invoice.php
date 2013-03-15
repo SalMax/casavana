@@ -10,6 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  */
 class Invoice{
+
+    private $clientname;
+    
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -99,7 +102,16 @@ class Invoice{
         return $this->clientid;
     }
     
+    public function setclientname($name)
+    {
+        $this->clientname = $name;
+        return $this;
+    }
     
+    public function getclientname()
+    {
+        return $this->clientname;
+    }
     /**
      * Set price
      *
@@ -225,4 +237,5 @@ class Invoice{
     {
         return $this->invoiceproducts;
     }
+    
 }
