@@ -11,6 +11,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Invoice{
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=90, nullable=false)
+     */
     private $clientname;
     
     /**

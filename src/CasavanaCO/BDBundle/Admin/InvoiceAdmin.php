@@ -8,7 +8,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
 class InvoiceAdmin extends Admin {
-
+        
     private function Total_Price($invoice) {
 
         /*         * ************************************** */
@@ -59,7 +59,8 @@ class InvoiceAdmin extends Admin {
                 /*->add('_action', 'actions', array(
                     'actions' => array(
                         'act' => array('template' => 'CasavanaCOBDBundle:Invoice_List:invoice_list_client.html.twig'))))*/
-                ->add('getclientname', null, array('label' => 'Client'))
+                ->add('clientname', null, array('label' => 'Client'))
+                //->add('custom', 'string', array('template' => 'CasavanaCOBDBundle:Slices:clientname.html.twig')) (TEST)
                 ->addIdentifier('invoiceDate', 'date')
                 ->add('price')
                 ->add('status')
@@ -80,14 +81,14 @@ class InvoiceAdmin extends Admin {
         $invoice->setLastmodify($currentTime);
         $invoice->setPrice($this->Total_Price($invoice));
         
+        $invoice->setClientId($this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser()->getId());
+        
         //Preparamos conexion
         $doctrine = $this->getConfigurationPool()->getContainer()->get('doctrine');
         $em = $doctrine->getEntityManager();
-        $cliente = $em->getRepository('ApplicationSonataUserBundle:User')->find(1);
-        $cliente = $cliente->getFirstname() . " " . $cliente->getLastname();
-        $invoice->setclientname($cliente);
-
-        $invoice->setClientId($this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser()->getId());
+        $cliente = $em->getRepository('ApplicationSonataUserBundle:User')->find($invoice->getClientId());
+        $thename = $cliente->getFirstname() . " " . $cliente->getLastname();
+        $invoice->setclientname($thename);
 
         $pedidos = $invoice->getInvoiceproducts();
         //A cada pedido le asignamos el ID del invoice
@@ -107,9 +108,9 @@ class InvoiceAdmin extends Admin {
         //Preparamos conexion
         $doctrine = $this->getConfigurationPool()->getContainer()->get('doctrine');
         $em = $doctrine->getEntityManager();
-        $cliente = $em->getRepository('ApplicationSonataUserBundle:User')->find(1);
-        $cliente = $cliente->getFirstname() . " " . $cliente->getLastname();
-        $invoice->setclientname($cliente);
+        $cliente = $em->getRepository('ApplicationSonataUserBundle:User')->find($invoice->getClientId());
+        $thename = $cliente->getFirstname() . " " . $cliente->getLastname();
+        $invoice->setclientname($thename);
 
         $invoice->setClientId($this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser()->getId());
 
@@ -121,6 +122,10 @@ class InvoiceAdmin extends Admin {
                 $producto = $pedido_i->setInvoice($invoice);
             }
         }
+    }
+    
+    function theName(){
+        return 'test';
     }
 
 }
