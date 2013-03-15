@@ -8,6 +8,10 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
 class InvoiceClient extends Admin {
+    
+    protected $baseRouteName = 'invoice_client';
+    
+    protected $baseRoutePattern = 'invoice_client';
 
     private function Total_Price($invoice) {
 
@@ -36,7 +40,7 @@ class InvoiceClient extends Admin {
 
     protected function configureFormFields(FormMapper $formMapper) {
 
-        if ($this->getSubject()->getStatus() == 'opened' || $this->getSubject()->getStatus() == 'processing') {
+        if ($this->getSubject()->getStatus() == 'opened' || $this->getSubject()->getStatus() == 'processing' || $this->getSubject()->getStatus() == '') {
             $formMapper
                     ->add('invoiceproducts', 'sonata_type_collection', array(), array(
                         'edit' => 'inline',

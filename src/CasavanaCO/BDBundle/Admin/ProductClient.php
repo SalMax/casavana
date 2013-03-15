@@ -8,8 +8,12 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\FormType;
 
-class ProductAdmin extends Admin
+class ProductClient extends Admin
 {
+    protected $baseRouteName = 'product_client';
+    
+    protected $baseRoutePattern = 'product_client';
+    
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
@@ -33,15 +37,8 @@ class ProductAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('name')
-            ->add('description')
-            ->add('cost')
-            ->add('margin')
             ->add('price')
-            ->add('_action', 'actions', array(
-            'actions' => array(
-		        'edit' => array(),
-		        'delete' => array()
-				    )))
+            ->add('description')
         ;
     }
     

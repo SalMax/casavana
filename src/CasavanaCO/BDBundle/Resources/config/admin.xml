@@ -32,13 +32,22 @@
               <argument>CasavanaCOBDBundle</argument>
           </call>
       </service>
-<!--
-      <service id="sonata.admin.invoiceclient" class="CasavanaCO\BDBundle\Admin\InvoiceClient">
-          <tag name="sonata.admin" manager_type="orm" group="InvoicesClient" label="InvoicesClient"/>
+      <service id="sonata.client.invoiceclient" class="CasavanaCO\BDBundle\Admin\InvoiceClient">
+          <tag name="sonata.admin" manager_type="orm" group="Client" label="InvoicesClient"/>
           <argument />
           <argument>CasavanaCO\BDBundle\Entity\Invoice</argument>
           <argument>SonataAdminBundle:CRUD</argument>
       </service>
+      <service id="sonata.client.productclient" class="CasavanaCO\BDBundle\Admin\ProductClient">
+          <tag name="sonata.admin" manager_type="orm" group="Client" label="ProductsClient" public="true"/>
+          <argument />
+          <argument>CasavanaCO\BDBundle\Entity\Product</argument>
+          <argument>SonataAdminBundle:CRUD</argument>
+          <call method="setTranslationDomain">
+              <argument>CasavanaCOBDBundle</argument>
+          </call>
+      </service>
+      <!--
 	  <service id="sonata.admin.user" class="Application\Sonata\UserBundle\Entity\User">
           <tag name="sonata.admin" manager_type="orm" group="User" label="User"/>
           <argument />

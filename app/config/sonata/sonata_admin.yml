@@ -31,10 +31,12 @@ sonata_admin:
                  label: User Admin options
                  items:
                      - sonata.user.admin.user
-#             sonata_page3:
-#                 label: Client Area
-#                 items:
-#                     - sonata.admin.invoiceclient
+             sonata_page3:
+                 label: Client Area
+                 items:
+                     - sonata.client.invoiceclient
+                     - sonata.client.productclient
+                     - sonata.admin.category
     security:
 #        handler: sonata.admin.security.handler.acl
 #        # acl security information
