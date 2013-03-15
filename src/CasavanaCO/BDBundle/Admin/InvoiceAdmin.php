@@ -62,6 +62,7 @@ class InvoiceAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
+			->addIdentifier('id')
             ->addIdentifier('invoiceDate','date')
             ->add('price')
             ->add('status')
