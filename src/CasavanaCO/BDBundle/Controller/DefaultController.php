@@ -16,4 +16,12 @@ class DefaultController extends Controller
     {
         return array('name' => $name);
     }
+    
+        /*public function invoicelistclientnameAction() {
+        //Preparamos conexion
+        //$doctrine = $this->getDoctrine();
+        //$em = $doctrine->getEntityManager();
+        //$invoices = $em->getRepository('CasavanaCOBDBundle:Invoice')->findBy(array('clientid' => $this->getUser()->getId()));
+        return render(array('clientname' => 'Pablo'));
+    }*/
 }

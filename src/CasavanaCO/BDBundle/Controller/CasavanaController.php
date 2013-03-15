@@ -32,4 +32,16 @@ class CasavanaController extends Controller
 		return $this->render("CasavanaCOBDBundle:Casavana:index.html.twig");
 		
     }
+    
+    public function invoicelistclientnameAction() {
+        //Preparamos conexion
+        $doctrine = $this->get('doctrine');
+        $em = $doctrine->getEntityManager();
+        $idcliente = $em->getRepository('ApplicationSonataUserBundle:Invoice')->find('clientid');
+        $cliente = $em->getRepository('ApplicationSonataUserBundle:User')->find(1);
+        $cliente = $cliente->getFirstname() . " " . $cliente->getLastname();
+        
+        return $this->render("CasavanaCOBDBundle:Invoice_List:invoice_list_client_resp.html.twig", array('clientname'=>$cliente));
+    }
+    
 }
