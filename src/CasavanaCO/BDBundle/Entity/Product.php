@@ -203,9 +203,9 @@ class Product
     }
 	
 	/**
-     * Set price
+     * Set priceby
      *
-     * @param float $price
+     * @param string $price_by
      * @return Product
      */
     public function setPriceBy($price_by)
@@ -216,9 +216,9 @@ class Product
     }
 
     /**
-     * Get price
+     * Get priceby
      *
-     * @return float 
+     * @return string 
      */
     public function getPriceBy()
     {

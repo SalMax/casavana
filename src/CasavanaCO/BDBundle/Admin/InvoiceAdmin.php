@@ -27,7 +27,13 @@ class InvoiceAdmin extends Admin {
             //for ( $i = 0 ; $i < count($pedidos) ; $i ++) {
             //if(isset($pedido_i)){
             $producto = $pedido_i->getProduct();
-            $suma_precio = $suma_precio + $producto->getPrice() * $pedido_i->getPesototal();
+            //Si el precio de este producto es por peso...
+            if(strcmp($producto->getPriceBy(),'lb')==0){
+                $suma_precio = $suma_precio + $producto->getPrice() * $pedido_i->getPesototal();
+            }
+            else{
+                $suma_precio = $suma_precio + $producto->getPrice() * $pedido_i->getCantidad();
+            }
             //}
         }
         //$this->getForm()->getAttribute('cantidad');
