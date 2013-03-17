@@ -17,9 +17,9 @@ class PedidosAdmin extends Admin
     {
         $formMapper
             ->add('cantidad', null, array('label' => "Units"))
-            ->add('pesototal', null, array('label' => "Invoice Weight (lbs.)"))
+            ->add('pesototal', null, array('label' => "Invoice Weight (lbs.)",'empty_data'=>'0','required'=>false))
             ->add('product', 'sonata_type_model_list', array('required' => true))
-            ->add('subtotal', null, array('label' => "Subtotal",'read_only' =>true))
+            ->add('subtotal', null, array('label' => "Subtotal",'read_only' =>true,'empty_data'=>'0','required'=>false))
             
         ;
     }
