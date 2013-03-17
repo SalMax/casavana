@@ -1,0 +1,5 @@
+CasavanaCO\BDBundle\Entity\Pedidos:
+    constraints:
+        - Sonata\AdminBundle\Validator\Constraints\InlineConstraint:
+            service: sonata.admin.pedidos
+            method: validatePedidemierda

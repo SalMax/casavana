@@ -21,6 +21,11 @@ class Pedidos {
      * @ORM\Column(type="string", length=255)
      */
     protected $cantidad;
+    
+    /**
+     * @ORM\Column(type="decimal", scale=2)
+     */
+    protected $pesototal;
 
     /**
      * @ORM\ManyToOne(targetEntity="CasavanaCO\BDBundle\Entity\Product", inversedBy="pedidos")
@@ -106,4 +111,27 @@ class Pedidos {
         return $this->invoice;
     }
 
+
+    /**
+     * Set pesototal
+     *
+     * @param string $pesototal
+     * @return Pedidos
+     */
+    public function setPesototal($pesototal)
+    {
+        $this->pesototal = $pesototal;
+    
+        return $this;
+    }
+
+    /**
+     * Get pesototal
+     *
+     * @return string 
+     */
+    public function getPesototal()
+    {
+        return $this->pesototal;
+    }
 }

@@ -16,7 +16,8 @@ class PedidosAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('cantidad')
+            ->add('cantidad', null, array('label' => "Units"))
+            ->add('pesototal', null, array('label' => "Invoice Weight (lbs.)"))
             ->add('product', 'sonata_type_model_list', array('required' => true))
         ;
     }
@@ -51,5 +52,14 @@ class PedidosAdmin extends Admin
                 ->assertMaxLength(array('limit' => 32))
             ->end()
         ;
+    }
+    
+    public function validatePedido(ErrorElement $errorElement, $pedido)
+    {
+        $errorElement
+            ->with('pedido.pesototal')
+                ->assertNotNull(array())
+                ->assertNotBlank()
+            ->end();
     }
 }
