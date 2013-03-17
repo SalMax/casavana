@@ -31,7 +31,7 @@ class InvoiceClient extends Admin {
             //for ( $i = 0 ; $i < count($pedidos) ; $i ++) {
             //if(isset($pedido_i)){
             $producto = $pedido_i->getProduct();
-            $suma_precio = $suma_precio + $producto->getPrice() * $pedido_i->getCantidad();
+            $suma_precio = $suma_precio + $producto->getPrice() * $pedido_i->getPesototal();
             //}
         }
         //$this->getForm()->getAttribute('cantidad');
