@@ -19,6 +19,8 @@ class PedidosAdmin extends Admin
             ->add('cantidad', null, array('label' => "Units"))
             ->add('pesototal', null, array('label' => "Invoice Weight (lbs.)"))
             ->add('product', 'sonata_type_model_list', array('required' => true))
+            ->add('subtotal', null, array('label' => "Subtotal",'read_only' =>true))
+            
         ;
     }
 
@@ -56,10 +58,12 @@ class PedidosAdmin extends Admin
     
     public function validatePedido(ErrorElement $errorElement, $pedido)
     {
+        
         $errorElement
             ->with('pedido.pesototal')
                 ->assertNotNull(array())
                 ->assertNotBlank()
             ->end();
     }
+    
 }

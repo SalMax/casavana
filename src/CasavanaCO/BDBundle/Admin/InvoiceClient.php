@@ -33,9 +33,11 @@ class InvoiceClient extends Admin {
             $producto = $pedido_i->getProduct();
             //Si el precio de este producto es por peso...
             if(strcmp($producto->getPriceBy(),'lb')==0){
+                $pedido_i->setSubtotal($producto->getPrice() * $pedido_i->getPesototal());
                 $suma_precio = $suma_precio + $producto->getPrice() * $pedido_i->getPesototal();
             }
             else{
+                $pedido_i->setSubtotal($producto->getPrice() * $pedido_i->getCantidad());
                 $suma_precio = $suma_precio + $producto->getPrice() * $pedido_i->getCantidad();
             }
             //}
