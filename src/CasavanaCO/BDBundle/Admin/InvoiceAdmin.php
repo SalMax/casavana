@@ -55,7 +55,7 @@ class InvoiceAdmin extends Admin {
     protected function configureListFields(ListMapper $listMapper) {
         
         $listMapper
-                ->addIdentifier('id')
+                ->addIdentifier('id', null, array('label' => 'Invoice Id'))
                 /*->add('_action', 'actions', array(
                     'actions' => array(
                         'act' => array('template' => 'CasavanaCOBDBundle:Invoice_List:invoice_list_client.html.twig'))))*/
