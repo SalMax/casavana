@@ -44,6 +44,7 @@
             {{ form_rest(form) }}
 
             {% block formactions %}
+                {% if admin.formgroups %}
                 <div class="well form-actions">
                     {% if app.request.isxmlhttprequest %}
                         {% if admin.id(object) %}
@@ -70,6 +71,7 @@
                         {% endif %}
                     {% endif %}
                 </div>
+                {% endif %}
             {% endblock formactions %}
         </form>
     {% endif%}

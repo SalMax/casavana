@@ -14,6 +14,11 @@ sonata_admin:
         list:    SonataAdminBundle:CRUD:list.html.twig
         show:    SonataAdminBundle:CRUD:show.html.twig
         edit:    CasavanaCOBDBundle:CRUD:edit.html.twig
+        
+        # default values of helper templates
+        short_object_description: CasavanaCOBDBundle:Helper:short-object-description.html.twig
+        
+        
     dashboard:
         blocks:
             # display a dashboard block
@@ -35,8 +40,6 @@ sonata_admin:
                  label: Client Area
                  items:
                      - sonata.client.invoiceclient
-                     - sonata.client.productclient
-                     - sonata.admin.category
     security:
 #        handler: sonata.admin.security.handler.acl
 #        # acl security information

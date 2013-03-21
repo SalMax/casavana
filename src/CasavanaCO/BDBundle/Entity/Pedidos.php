@@ -23,12 +23,12 @@ class Pedidos {
     protected $cantidad;
 
     /**
-     * @ORM\Column(type="decimal", scale=2)
+     * @ORM\Column(type="decimal", scale=2, nullable=true)
      */
     protected $pesototal;
     
    /**
-     * @ORM\Column(type="decimal", scale=2)
+     * @ORM\Column(type="decimal", scale=2, nullable=true)
      */
     protected $subtotal;
 

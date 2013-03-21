@@ -15,10 +15,6 @@ class InvoiceClient extends Admin {
 
     private function Total_Price($invoice) {
 
-        /*         * ************************************** */
-        /** NO DESCOMENTAR, PUEDE QUE NOS SIRVA * */
-        /*         * ************************************** */
-
         $suma_precio = 0;
         //Preparamos conexion
         //$doctrine = $this->getConfigurationPool()->getContainer()->get('doctrine');
@@ -93,9 +89,18 @@ class InvoiceClient extends Admin {
         $currentTime = new \DateTime(date('m/d/Y h:i:s a', time()));
         $invoice->setInvoiceDate($currentTime);
         $invoice->setLastmodify($currentTime);
-        $invoice->setPrice($this->Total_Price($invoice));
+        //$invoice->setPrice($this->Total_Price($invoice));
         $invoice->setStatus('opened');
+        
         $invoice->setClientId($this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser()->getId());
+        
+        //Preparamos conexion
+        $doctrine = $this->getConfigurationPool()->getContainer()->get('doctrine');
+        $em = $doctrine->getEntityManager();
+        $cliente = $em->getRepository('ApplicationSonataUserBundle:User')->find($invoice->getClientId());
+        $thename = $cliente->getFirstname() . " " . $cliente->getLastname();
+        $invoice->setclientname($thename);
+        
 
         $pedidos = $invoice->getInvoiceproducts();
         //A cada pedido le asignamos el ID del invoice
@@ -110,7 +115,7 @@ class InvoiceClient extends Admin {
     public function preUpdate($invoice) {
         $currentTime = new \DateTime(date('m/d/Y h:i:s a', time()));
         $invoice->setLastmodify($currentTime);
-        $invoice->setPrice($this->Total_Price($invoice));
+        //$invoice->setPrice($this->Total_Price($invoice));
         $invoice->setClientId($this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser()->getId());
 
         $pedidos = $invoice->getInvoiceproducts();

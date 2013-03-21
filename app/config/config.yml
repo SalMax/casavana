@@ -92,7 +92,7 @@ sonata_doctrine_orm_admin:
                 date:       SonataAdminBundle:CRUD:list_date.html.twig
                 time:       SonataAdminBundle:CRUD:list_time.html.twig
                 datetime:   SonataAdminBundle:CRUD:list_datetime.html.twig
-                text:       SonataAdminBundle:CRUD:base_list_field.html.twig
+                text:       CasavanaCOBDBundle:CRUD:base_list_field.html.twig
                 trans:      SonataAdminBundle:CRUD:list_trans.html.twig
                 string:     SonataAdminBundle:CRUD:base_list_field.html.twig
                 smallint:   SonataAdminBundle:CRUD:base_list_field.html.twig

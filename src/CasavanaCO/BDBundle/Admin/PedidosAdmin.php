@@ -15,13 +15,22 @@ class PedidosAdmin extends Admin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper
-            ->add('cantidad', null, array('label' => "Units"))
-            ->add('pesototal', null, array('label' => "Invoice Weight (lbs.)",'empty_data'=>'0','required'=>false))
-            ->add('product', 'sonata_type_model_list', array('required' => true))
-            ->add('subtotal', null, array('label' => "Subtotal",'read_only' =>true,'empty_data'=>'0','required'=>false))
-            
-        ;
+        
+        if($this->getConfigurationPool()->getContainer()->get('security.context')->isGranted('ROLE_MANAGER')){//$this->configurationPool->get('security.context')->isGranted('ROLE_CLIENT')){
+            $formMapper
+                ->add('cantidad', null, array('label' => "Units"))
+                ->add('pesototal', null, array('label' => "Invoice Weight (lbs.)",'empty_data'=>'0','required'=>false))
+                ->add('product', 'sonata_type_model_list', array('required' => true))
+                ->add('subtotal', null, array('label' => "Subtotal",'read_only' =>true,'empty_data'=>'0','required'=>false))
+
+            ; 
+        }else{
+           $formMapper
+                ->add('cantidad', null, array('label' => "Units"))
+                ->add('product', 'sonata_type_model_list', array('required' => true))
+
+            ; 
+        }
     }
 
     /**

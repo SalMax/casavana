@@ -16,14 +16,22 @@ class ProductClient extends Admin
     
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper
-            ->add('name')
-            ->add('description')
-            ->add('cost')
-            ->add('margin')
-            ->add('price_by','choice', array('choices' => array('unit' => 'Unit', 'lb' => 'Lb')))
-            ->add('category', 'sonata_type_model_list', array('required' => false))
-        ;
+//        $formMapper
+//            ->add('name')
+//            ->add('description')
+//            ->add('cost')
+//            ->add('margin')
+//            ->add('price_by','choice', array('choices' => array('unit' => 'Unit', 'lb' => 'Lb')))
+//            ->add('category', 'sonata_type_model_list', array('required' => false))
+//        ;
+    }
+    
+    public function getBatchActions()
+    {
+        // retrieve the default (currently only the delete action) actions
+        $actions = null;
+
+        return $actions;
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)

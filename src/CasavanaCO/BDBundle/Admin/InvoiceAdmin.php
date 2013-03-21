@@ -113,14 +113,16 @@ class InvoiceAdmin extends Admin {
         $invoice->setLastmodify($currentTime);
         $invoice->setPrice($this->Total_Price($invoice));
         
-        //Preparamos conexion
-        $doctrine = $this->getConfigurationPool()->getContainer()->get('doctrine');
-        $em = $doctrine->getEntityManager();
-        $cliente = $em->getRepository('ApplicationSonataUserBundle:User')->find($invoice->getClientId());
-        $thename = $cliente->getFirstname() . " " . $cliente->getLastname();
-        $invoice->setclientname($thename);
+//        //Preparamos conexion
+//        $invoice->setClientId($this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser()->getId());
+//        
+//        $doctrine = $this->getConfigurationPool()->getContainer()->get('doctrine');
+//        $em = $doctrine->getEntityManager();
+//        $cliente = $em->getRepository('ApplicationSonataUserBundle:User')->find($invoice->getClientId());
+//        $thename = $cliente->getFirstname() . " " . $cliente->getLastname();
+//        $invoice->setclientname($thename);
 
-        $invoice->setClientId($this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser()->getId());
+        
 
         $pedidos = $invoice->getInvoiceproducts();
         //A cada pedido le asignamos el ID del invoice
