@@ -51,7 +51,7 @@ class InvoiceAdmin extends Admin {
                         'inline' => 'table',
                         'sortable' => 'position'))
                     ->add('price', null, array('read_only' => true))
-                    ->add('status', 'choice', array('choices' => array('opened' => 'Opened', 'processing' => 'Processing', 'closed' => 'Closed')))
+                    ->add('status', 'choice', array('choices' => array('opened' => 'Opened', 'processing' => 'Processing', 'closed' => 'Closed','modified by client'=>'Modified by client')))
             ;
         }
         //Si eres cliente
@@ -139,6 +139,13 @@ class InvoiceAdmin extends Admin {
         $currentTime = new \DateTime(date('m/d/Y h:i:s a', time()));
         $invoice->setLastmodify($currentTime);
         $invoice->setPrice($this->Total_Price($invoice));
+
+        if ($this->getConfigurationPool()->getContainer()->get('security.context')->isGranted('ROLE_CLIENT')) {//$this->configurationPool->get('security.context')->isGranted('ROLE_CLIENT')){
+            if (strcmp($invoice->getStatus(), 'processing') == 0) {
+                $invoice->setStatus('Modified by client');
+            }
+        }
+
 
 //        //Preparamos conexion
 //        $invoice->setClientId($this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser()->getId());
