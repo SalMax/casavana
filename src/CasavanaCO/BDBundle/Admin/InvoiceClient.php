@@ -8,9 +8,8 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
 class InvoiceClient extends Admin {
-    
+
     protected $baseRouteName = 'invoice_client';
-    
     protected $baseRoutePattern = 'invoice_client';
 
     private function Total_Price($invoice) {
@@ -28,11 +27,10 @@ class InvoiceClient extends Admin {
             //if(isset($pedido_i)){
             $producto = $pedido_i->getProduct();
             //Si el precio de este producto es por peso...
-            if(strcmp($producto->getPriceBy(),'lb')==0){
+            if (strcmp($producto->getPriceBy(), 'lb') == 0) {
                 $pedido_i->setSubtotal($producto->getPrice() * $pedido_i->getPesototal());
                 $suma_precio = $suma_precio + $producto->getPrice() * $pedido_i->getPesototal();
-            }
-            else{
+            } else {
                 $pedido_i->setSubtotal($producto->getPrice() * $pedido_i->getCantidad());
                 $suma_precio = $suma_precio + $producto->getPrice() * $pedido_i->getCantidad();
             }
@@ -44,22 +42,14 @@ class InvoiceClient extends Admin {
 
     protected function configureFormFields(FormMapper $formMapper) {
 
-        if ($this->getSubject()->getStatus() == 'opened' || $this->getSubject()->getStatus() == 'processing' || $this->getSubject()->getStatus() == '') {
-            $formMapper
-                    ->add('invoiceproducts', 'sonata_type_collection', array(), array(
-                        'edit' => 'inline',
-                        'inline' => 'table',
-                        'sortable' => 'position'))
-                    ->add('price', null, array('read_only' => true))
-                    ->add('status', null, array('read_only' => true))
-            ;
-        } else {
-            $formMapper
-                    ->add('lastmodify',null,array('read_only'=>true,'disabled'=>true))
-                    ->add('price', null, array('read_only' => true))
-                    ->add('status', null, array('read_only' => true))
-            ;
-        }
+        $formMapper
+                ->add('invoiceproducts', 'sonata_type_collection', array(), array(
+                    'edit' => 'inline',
+                    'inline' => 'table',
+                    'sortable' => 'position'))
+                //->add('price', null, array('read_only' => true))
+                ->add('status', null, array('read_only' => true))
+        ;
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
@@ -91,16 +81,16 @@ class InvoiceClient extends Admin {
         $invoice->setLastmodify($currentTime);
         //$invoice->setPrice($this->Total_Price($invoice));
         $invoice->setStatus('opened');
-        
+
         $invoice->setClientId($this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser()->getId());
-        
+
         //Preparamos conexion
         $doctrine = $this->getConfigurationPool()->getContainer()->get('doctrine');
         $em = $doctrine->getEntityManager();
         $cliente = $em->getRepository('ApplicationSonataUserBundle:User')->find($invoice->getClientId());
         $thename = $cliente->getFirstname() . " " . $cliente->getLastname();
         $invoice->setclientname($thename);
-        
+
 
         $pedidos = $invoice->getInvoiceproducts();
         //A cada pedido le asignamos el ID del invoice

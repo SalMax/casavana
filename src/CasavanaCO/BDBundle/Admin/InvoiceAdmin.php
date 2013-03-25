@@ -8,7 +8,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
 class InvoiceAdmin extends Admin {
-        
+
     private function Total_Price($invoice) {
 
         /*         * ************************************** */
@@ -28,11 +28,10 @@ class InvoiceAdmin extends Admin {
             //if(isset($pedido_i)){
             $producto = $pedido_i->getProduct();
             //Si el precio de este producto es por peso...
-            if(strcmp($producto->getPriceBy(),'lb')==0){
+            if (strcmp($producto->getPriceBy(), 'lb') == 0) {
                 $pedido_i->setSubtotal($producto->getPrice() * $pedido_i->getPesototal());
                 $suma_precio = $suma_precio + $producto->getPrice() * $pedido_i->getPesototal();
-            }
-            else{
+            } else {
                 $pedido_i->setSubtotal($producto->getPrice() * $pedido_i->getCantidad());
                 $suma_precio = $suma_precio + $producto->getPrice() * $pedido_i->getCantidad();
             }
@@ -43,14 +42,43 @@ class InvoiceAdmin extends Admin {
     }
 
     protected function configureFormFields(FormMapper $formMapper) {
-        $formMapper
-                ->add('invoiceproducts', 'sonata_type_collection', array(), array(
-                    'edit' => 'inline',
-                    'inline' => 'table',
-                    'sortable' => 'position'))
-                ->add('price', null, array('read_only' => true))
-                ->add('status', 'choice', array('choices' => array('opened' => 'Opened', 'processing' => 'Processing', 'closed' => 'Closed')))
-        ;
+
+        //Si eres manager
+        if ($this->getConfigurationPool()->getContainer()->get('security.context')->isGranted('ROLE_MANAGER')) {//$this->configurationPool->get('security.context')->isGranted('ROLE_CLIENT')){
+            $formMapper
+                    ->add('invoiceproducts', 'sonata_type_collection', array(), array(
+                        'edit' => 'inline',
+                        'inline' => 'table',
+                        'sortable' => 'position'))
+                    ->add('price', null, array('read_only' => true))
+                    ->add('status', 'choice', array('choices' => array('opened' => 'Opened', 'processing' => 'Processing', 'closed' => 'Closed')))
+            ;
+        }
+        //Si eres cliente
+        else {
+            //Si el pedido está cerrado
+            if (strcmp($this->getSubject()->getStatus(), 'closed') == 0) {
+                $formMapper
+                        ->add('invoiceproducts', 'sonata_type_collection', array('disabled' => true), array(
+                            'edit' => 'inline',
+                            'inline' => 'table',
+                            'sortable' => 'position'))
+                        ->add('price', null, array('read_only' => true))
+                        ->add('status', 'choice', array('choices' => array('opened' => 'Opened', 'processing' => 'Processing', 'closed' => 'Closed')))
+                ;
+            }
+            //Si no esta cerrado
+            else {
+                $formMapper
+                        ->add('invoiceproducts', 'sonata_type_collection', array(), array(
+                            'edit' => 'inline',
+                            'inline' => 'table',
+                            'sortable' => 'position'))
+                        ->add('price', null, array('read_only' => true))
+                        ->add('status', 'choice', array('choices' => array('opened' => 'Opened', 'processing' => 'Processing', 'closed' => 'Closed')))
+                ;
+            }
+        }
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
@@ -61,12 +89,12 @@ class InvoiceAdmin extends Admin {
     }
 
     protected function configureListFields(ListMapper $listMapper) {
-        
+
         $listMapper
                 ->addIdentifier('id', null, array('label' => 'Invoice Id'))
-                /*->add('_action', 'actions', array(
-                    'actions' => array(
-                        'act' => array('template' => 'CasavanaCOBDBundle:Invoice_List:invoice_list_client.html.twig'))))*/
+                /* ->add('_action', 'actions', array(
+                  'actions' => array(
+                  'act' => array('template' => 'CasavanaCOBDBundle:Invoice_List:invoice_list_client.html.twig')))) */
                 ->add('clientname', null, array('label' => 'Client'))
                 //->add('custom', 'string', array('template' => 'CasavanaCOBDBundle:Slices:clientname.html.twig')) (TEST)
                 ->addIdentifier('invoiceDate', 'date')
@@ -88,9 +116,9 @@ class InvoiceAdmin extends Admin {
         $invoice->setInvoiceDate($currentTime);
         $invoice->setLastmodify($currentTime);
         $invoice->setPrice($this->Total_Price($invoice));
-        
+
         $invoice->setClientId($this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser()->getId());
-        
+
         //Preparamos conexion
         $doctrine = $this->getConfigurationPool()->getContainer()->get('doctrine');
         $em = $doctrine->getEntityManager();
@@ -112,7 +140,7 @@ class InvoiceAdmin extends Admin {
         $currentTime = new \DateTime(date('m/d/Y h:i:s a', time()));
         $invoice->setLastmodify($currentTime);
         $invoice->setPrice($this->Total_Price($invoice));
-        
+
 //        //Preparamos conexion
 //        $invoice->setClientId($this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser()->getId());
 //        
@@ -122,7 +150,7 @@ class InvoiceAdmin extends Admin {
 //        $thename = $cliente->getFirstname() . " " . $cliente->getLastname();
 //        $invoice->setclientname($thename);
 
-        
+
 
         $pedidos = $invoice->getInvoiceproducts();
         //A cada pedido le asignamos el ID del invoice
@@ -133,8 +161,8 @@ class InvoiceAdmin extends Admin {
             }
         }
     }
-    
-    function theName(){
+
+    function theName() {
         return 'test';
     }
 

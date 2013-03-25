@@ -8,71 +8,57 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\AdminBundle\Form\FormMapper;
 
-class PedidosAdmin extends Admin
-{
+class PedidosAdmin extends Admin {
+
     /**
      * {@inheritdoc}
      */
-    protected function configureFormFields(FormMapper $formMapper)
-    {
-        
-        if($this->getConfigurationPool()->getContainer()->get('security.context')->isGranted('ROLE_MANAGER')){//$this->configurationPool->get('security.context')->isGranted('ROLE_CLIENT')){
-            $formMapper
+    protected function configureFormFields(FormMapper $formMapper) {
+        $formMapper
                 ->add('cantidad', null, array('label' => "Units"))
-                ->add('pesototal', null, array('label' => "Invoice Weight (lbs.)",'empty_data'=>'0','required'=>false))
+                ->add('pesototal', null, array('label' => "Invoice Weight (lbs.)", 'empty_data' => '0', 'required' => false))
                 ->add('product', 'sonata_type_model_list', array('required' => true))
-                ->add('subtotal', null, array('label' => "Subtotal",'read_only' =>true,'empty_data'=>'0','required'=>false))
+                ->add('subtotal', null, array('label' => "Subtotal", 'read_only' => true, 'empty_data' => '0', 'required' => false))
 
-            ; 
-        }else{
-           $formMapper
-                ->add('cantidad', null, array('label' => "Units"))
-                ->add('product', 'sonata_type_model_list', array('required' => true))
-
-            ; 
-        }
+        ;
     }
 
     /**
      * {@inheritdoc}
      */
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
         $datagridMapper
-            ->add('cantidad')
+                ->add('cantidad')
         ;
     }
 
     /**
      * {@inheritdoc}
      */
-    protected function configureListFields(ListMapper $listMapper)
-    {
+    protected function configureListFields(ListMapper $listMapper) {
         $listMapper
-            ->addIdentifier('cantidad')
+                ->addIdentifier('cantidad')
         ;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function validate(ErrorElement $errorElement, $object)
-    {
+    public function validate(ErrorElement $errorElement, $object) {
         $errorElement
-            ->with('cantidad')
+                ->with('cantidad')
                 ->assertMaxLength(array('limit' => 32))
-            ->end()
+                ->end()
         ;
     }
-    
-    public function validatePedido(ErrorElement $errorElement, $pedido)
-    {
-        
+
+    public function validatePedido(ErrorElement $errorElement, $pedido) {
+
         $errorElement
-            ->with('pedido.pesototal')
+                ->with('pedido.pesototal')
                 ->assertNotNull(array())
                 ->assertNotBlank()
-            ->end();
+                ->end();
     }
-    
+
 }
