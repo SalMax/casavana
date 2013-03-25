@@ -110,7 +110,7 @@ class InvoiceClient extends Admin {
         if (strcmp($invoice->getStatus(), 'processing') == 0) {
             $invoice->setStatus('modified by client');
         }
-        
+
         $pedidos = $invoice->getInvoiceproducts();
         //A cada pedido le asignamos el ID del invoice
         foreach ($pedidos as $pedido_i) {
@@ -130,7 +130,7 @@ class InvoiceClient extends Admin {
         if (strcmp($invoice->getStatus(), 'processing') == 0) {
             $invoice->setStatus('modified by client');
         }
-        
+
         $pedidos = $invoice->getInvoiceproducts();
         //A cada pedido le asignamos el ID del invoice
         foreach ($pedidos as $pedido_i) {

@@ -45,14 +45,14 @@ class InvoiceAdmin extends Admin {
 
         //Si eres manager
         //if ($this->getConfigurationPool()->getContainer()->get('security.context')->isGranted('ROLE_MANAGER')) {//$this->configurationPool->get('security.context')->isGranted('ROLE_CLIENT')){
-            $formMapper
-                    ->add('invoiceproducts', 'sonata_type_collection', array(), array(
-                        'edit' => 'inline',
-                        'inline' => 'table',
-                        'sortable' => 'position'))
-                    ->add('price', null, array('read_only' => true))
-                    ->add('status', 'choice', array('choices' => array('opened' => 'Opened', 'processing' => 'Processing', 'closed' => 'Closed','modified by client'=>'Modified by client')))
-            ;
+        $formMapper
+                ->add('invoiceproducts', 'sonata_type_collection', array(), array(
+                    'edit' => 'inline',
+                    'inline' => 'table',
+                    'sortable' => 'position'))
+                ->add('price', null, array('read_only' => true))
+                ->add('status', 'choice', array('choices' => array('opened' => 'Opened', 'processing' => 'Processing', 'closed' => 'Closed', 'modified by client' => 'Modified by client')))
+        ;
         //}
     }
 
