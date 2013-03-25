@@ -64,7 +64,7 @@ class InvoiceAdmin extends Admin {
                             'inline' => 'table',
                             'sortable' => 'position'))
                         ->add('price', null, array('read_only' => true))
-                        ->add('status', 'choice', array('choices' => array('opened' => 'Opened', 'processing' => 'Processing', 'closed' => 'Closed')))
+                        ->add('status', null, array('disabled' => true))
                 ;
             }
             //Si no esta cerrado
@@ -75,8 +75,7 @@ class InvoiceAdmin extends Admin {
                             'inline' => 'table',
                             'sortable' => 'position'))
                         ->add('price', null, array('read_only' => true))
-                        ->add('status', 'choice', array('choices' => array('opened' => 'Opened', 'processing' => 'Processing', 'closed' => 'Closed')))
-                ;
+                        ->add('status', null, array('disabled' => true));
             }
         }
     }
