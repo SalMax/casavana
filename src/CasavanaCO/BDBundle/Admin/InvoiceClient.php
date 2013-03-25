@@ -42,14 +42,30 @@ class InvoiceClient extends Admin {
 
     protected function configureFormFields(FormMapper $formMapper) {
 
-        $formMapper
-                ->add('invoiceproducts', 'sonata_type_collection', array(), array(
-                    'edit' => 'inline',
-                    'inline' => 'table',
-                    'sortable' => 'position'))
-                //->add('price', null, array('read_only' => true))
-                ->add('status', null, array('read_only' => true))
-        ;
+        //Si el pedido está cerrado
+        //Solo escritura
+        if (strcmp($this->getSubject()->getStatus(), 'closed') == 0) {
+
+            $formMapper
+                    ->add('invoiceproducts', 'sonata_type_collection', array('read_only' => true), array(
+                        'edit' => 'inline',
+                        'inline' => 'table',
+                        'sortable' => 'position'))
+                    ->add('price', null, array('read_only' => true))
+                    ->add('status', null, array('read_only' => true))
+            ;
+        }
+        //Si no esta cerrado
+        //Se puede modificar
+        else {
+            $formMapper
+                    ->add('invoiceproducts', 'sonata_type_collection', array(), array(
+                        'edit' => 'inline',
+                        'inline' => 'table',
+                        'sortable' => 'position'))
+                    ->add('price', null, array('read_only' => true))
+                    ->add('status', null, array('read_only' => true));
+        }
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
@@ -91,7 +107,10 @@ class InvoiceClient extends Admin {
         $thename = $cliente->getFirstname() . " " . $cliente->getLastname();
         $invoice->setclientname($thename);
 
-
+        if (strcmp($invoice->getStatus(), 'processing') == 0) {
+            $invoice->setStatus('modified by client');
+        }
+        
         $pedidos = $invoice->getInvoiceproducts();
         //A cada pedido le asignamos el ID del invoice
         foreach ($pedidos as $pedido_i) {
@@ -108,6 +127,10 @@ class InvoiceClient extends Admin {
         //$invoice->setPrice($this->Total_Price($invoice));
         $invoice->setClientId($this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser()->getId());
 
+        if (strcmp($invoice->getStatus(), 'processing') == 0) {
+            $invoice->setStatus('modified by client');
+        }
+        
         $pedidos = $invoice->getInvoiceproducts();
         //A cada pedido le asignamos el ID del invoice
         foreach ($pedidos as $pedido_i) {

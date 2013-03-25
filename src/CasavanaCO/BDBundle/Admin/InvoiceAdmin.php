@@ -44,7 +44,7 @@ class InvoiceAdmin extends Admin {
     protected function configureFormFields(FormMapper $formMapper) {
 
         //Si eres manager
-        if ($this->getConfigurationPool()->getContainer()->get('security.context')->isGranted('ROLE_MANAGER')) {//$this->configurationPool->get('security.context')->isGranted('ROLE_CLIENT')){
+        //if ($this->getConfigurationPool()->getContainer()->get('security.context')->isGranted('ROLE_MANAGER')) {//$this->configurationPool->get('security.context')->isGranted('ROLE_CLIENT')){
             $formMapper
                     ->add('invoiceproducts', 'sonata_type_collection', array(), array(
                         'edit' => 'inline',
@@ -53,31 +53,7 @@ class InvoiceAdmin extends Admin {
                     ->add('price', null, array('read_only' => true))
                     ->add('status', 'choice', array('choices' => array('opened' => 'Opened', 'processing' => 'Processing', 'closed' => 'Closed','modified by client'=>'Modified by client')))
             ;
-        }
-        //Si eres cliente
-        else {
-            //Si el pedido está cerrado
-            if (strcmp($this->getSubject()->getStatus(), 'closed') == 0) {
-                $formMapper
-                        ->add('invoiceproducts', 'sonata_type_collection', array('disabled' => true), array(
-                            'edit' => 'inline',
-                            'inline' => 'table',
-                            'sortable' => 'position'))
-                        ->add('price', null, array('read_only' => true))
-                        ->add('status', null, array('disabled' => true))
-                ;
-            }
-            //Si no esta cerrado
-            else {
-                $formMapper
-                        ->add('invoiceproducts', 'sonata_type_collection', array(), array(
-                            'edit' => 'inline',
-                            'inline' => 'table',
-                            'sortable' => 'position'))
-                        ->add('price', null, array('read_only' => true))
-                        ->add('status', null, array('disabled' => true));
-            }
-        }
+        //}
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
@@ -139,12 +115,6 @@ class InvoiceAdmin extends Admin {
         $currentTime = new \DateTime(date('m/d/Y h:i:s a', time()));
         $invoice->setLastmodify($currentTime);
         $invoice->setPrice($this->Total_Price($invoice));
-
-        if ($this->getConfigurationPool()->getContainer()->get('security.context')->isGranted('ROLE_CLIENT')) {//$this->configurationPool->get('security.context')->isGranted('ROLE_CLIENT')){
-            if (strcmp($invoice->getStatus(), 'processing') == 0) {
-                $invoice->setStatus('Modified by client');
-            }
-        }
 
 
 //        //Preparamos conexion
