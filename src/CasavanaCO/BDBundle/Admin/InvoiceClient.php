@@ -47,7 +47,7 @@ class InvoiceClient extends Admin {
         if (strcmp($this->getSubject()->getStatus(), 'closed') == 0) {
 
             $formMapper
-                    ->add('invoiceproducts', 'sonata_type_collection', array('read_only' => true), array(
+                    ->add('invoiceproducts', 'sonata_type_collection', array('label' => 'Products','read_only' => true), array(
                         'edit' => 'inline',
                         'inline' => 'table',
                         'sortable' => 'position'))
