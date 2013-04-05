@@ -6,6 +6,7 @@ use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Form\FormType;
 
 class ProductAdmin extends Admin
@@ -39,9 +40,17 @@ class ProductAdmin extends Admin
             ->add('price')
             ->add('_action', 'actions', array(
             'actions' => array(
-		        'edit' => array(),
-		        'delete' => array()
+		        'view' => array()
 				    )))
+        ;
+    }
+    
+    protected function configureShowFields(ShowMapper $showMapper)
+    {
+        $showMapper
+                ->add('name')
+                ->add('price')
+            
         ;
     }
     

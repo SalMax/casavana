@@ -35,17 +35,12 @@ file that was distributed with this source code.
 {% block side_menu %}{{ knp_menu_render(admin.sidemenu(action), {'currentClass' : 'active'}, 'list') }}{% endblock %}
 
 {% block show %}
+    <p style="text-align: center;"><a href="#" onclick="window.print();return false;" class="btn btn-primary btn-large">Print Invoice</a></p>
+    <div class="print">
+    <p><h3 style="text-align: center;">Casavana Central Order</h3></p>
     <div class="sonata-ba-view">
         {% for name, view_group in admin.showgroups %}
             <table class="table table-bordered">
-                {% if name %}
-                    <tr class="sonata-ba-view-title">
-                        <td colspan="2">
-                            {{ admin.trans(name) }}
-                        </td>
-                    </tr>
-                {% endif %}
-
                 {% for field_name in view_group.fields %}
                     <tr class="sonata-ba-view-container">
                         {% if elements[field_name] is defined %}
@@ -55,5 +50,6 @@ file that was distributed with this source code.
                 {% endfor %}
             </table>
         {% endfor %}
+    </div>
     </div>
 {% endblock %}

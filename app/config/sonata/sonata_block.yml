@@ -11,6 +11,7 @@ sonata_block:
         sonata.block.service.action: ~
         sonata.block.service.rss:    ~
         sonata.block.service.product: ~
+        casavana.block.products: ~
         
         sonata.admin.product: ~
         

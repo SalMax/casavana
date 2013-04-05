@@ -5,6 +5,7 @@ namespace CasavanaCO\BDBundle\Admin;
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
+use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
 class InvoiceAdmin extends Admin {
@@ -37,6 +38,7 @@ class InvoiceAdmin extends Admin {
             }
             //}
         }
+        $suma_precio += $invoice->getAdjust();
         //$this->getForm()->getAttribute('cantidad');
         return $suma_precio;
     }
@@ -51,6 +53,7 @@ class InvoiceAdmin extends Admin {
                     'inline' => 'table',
                     'sortable' => 'position'))
                 ->add('price', null, array('read_only' => true))
+                ->add('adjust', null, array('label'=>'Price adjust'))
                 ->add('status', 'choice', array('choices' => array('opened' => 'Opened', 'processing' => 'Processing', 'closed' => 'Closed', 'modified by client' => 'Modified by client')))
         ;
         //}
@@ -79,10 +82,30 @@ class InvoiceAdmin extends Admin {
         /* ->add('_action', 'actions', array(
           'actions' => array(
           'act' => array('template' => 'CasavanaCOBDBundle:Invoice_List:Status.html.twig')))) */
-        /* ->add('_action', 'actions', array(
+         ->add('_action', 'actions', array(
           'actions' => array(
-          'edit' => array(),
-          'delete' => array()))) */
+          'view' => array()
+              )))
+        ;
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    protected function configureShowFields(ShowMapper $showMapper)
+    {
+        $showMapper
+                ->add('id', null, array('label'=>'Invoice Id'))
+                ->add('invoiceDate', null, array('label' => 'Invoice date'))
+                ->add('clientname', null, array('label'=>'Client'))
+                ->add('price', null, array('template' => 'CasavanaCOBDBundle:ORMCRUD:show_price_field.html.twig'))
+                ->add('invoiceproducts', null , 
+                        array('template' => 'CasavanaCOBDBundle:ORMCRUD:show_orm_one_to_many.html.twig','label' => 'Products'), 
+                        array()
+                    )
+                ->add('adjust', null, array ('label' => 'Price adjust ($)'))
+                
+            
         ;
     }
 

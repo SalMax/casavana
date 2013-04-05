@@ -6,6 +6,7 @@ use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Show\ShowMapper;
 
 class InvoiceClient extends Admin {
 
@@ -47,6 +48,7 @@ class InvoiceClient extends Admin {
         if (strcmp($this->getSubject()->getStatus(), 'closed') == 0) {
 
             $formMapper
+                    
                     ->add('invoiceproducts', 'sonata_type_collection', array('label' => 'Products','read_only' => true), array(
                         'edit' => 'inline',
                         'inline' => 'table',
@@ -58,13 +60,15 @@ class InvoiceClient extends Admin {
         //Si no esta cerrado
         //Se puede modificar
         else {
+                        
             $formMapper
-                    ->add('invoiceproducts', 'sonata_type_collection', array(), array(
-                        'edit' => 'inline',
-                        'inline' => 'table',
-                        'sortable' => 'position'))
+                    ->with('Productos')
+                        ->add('invoiceproducts', 'sonata_type_collection', array('label' => 'Products'), array('edit' => 'inline','inline' => 'table','sortable' => 'position'))
+                        //->add('invoiceproducts', 'listaproductos', array(), array())
+                    ->end()
                     ->add('price', null, array('read_only' => true))
-                    ->add('status', null, array('read_only' => true));
+                    ->add('status', null, array('read_only' => true))
+                ;
         }
     }
 
@@ -80,6 +84,10 @@ class InvoiceClient extends Admin {
                 ->addIdentifier('invoiceDate', 'date')
                 ->add('price')
                 ->add('status')
+                ->add('_action', 'actions', array(
+                  'actions' => array(
+                  'view' => array()
+                      )))
         //->add('status','choice', array('choices' => array('opened' => 'Opened', 'processing' => 'Processing', 'closed' => 'Closed')))
         /* ->add('_action', 'actions', array(
           'actions' => array(
@@ -90,7 +98,27 @@ class InvoiceClient extends Admin {
           'delete' => array()))) */
         ;
     }
-
+    
+    /**
+     * {@inheritdoc}
+     */
+    protected function configureShowFields(ShowMapper $showMapper)
+    {
+        $showMapper
+                ->add('id', null, array('label'=>'Invoice Id'))
+                ->add('invoiceDate', null, array('label' => 'Invoice date'))
+                ->add('clientname', null, array('label'=>'Client'))
+                ->add('price', null, array('template' => 'CasavanaCOBDBundle:ORMCRUD:show_price_field.html.twig'))
+                ->add('invoiceproducts', null , 
+                        array('template' => 'CasavanaCOBDBundle:ORMCRUD:show_orm_one_to_many.html.twig','label' => 'Products'), 
+                        array()
+                    )
+                ->add('adjust', null, array ('label' => 'Price adjust ($)'))
+                
+            
+        ;
+    }
+    
     public function prePersist($invoice) {
         $currentTime = new \DateTime(date('m/d/Y h:i:s a', time()));
         $invoice->setInvoiceDate($currentTime);
@@ -140,5 +168,6 @@ class InvoiceClient extends Admin {
             }
         }
     }
-
+    
+    
 }

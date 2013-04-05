@@ -1,0 +1,11 @@
+{{ id }}
+
+{{ sonata_admin.admin.root.uniqid }}
+
+{{ sonata_block_render({
+    'type': 'casavana.block.products',
+    'settings': {
+        'title': '{{ id }}',
+        'url': 'http://sonata-project.org/blog/archive.rss'
+    }
+}) }}

@@ -1,0 +1,95 @@
+{% block block %}    
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Units</th>
+            <th>Invoice Weight (lbs.)</th>
+            <th>Product</th>
+            <th>Subtotal</th>
+        </tr>
+    </thead>
+    <tbody class="sonata-ba-tbody ui-sortable">
+        <tr>
+            <td class="sonata-ba-td-s5155e451eee51_invoiceproducts-cantidad">
+                <input type="text" id="s5155e451eee51_invoiceproducts_0_cantidad" name="s5155e451eee51[invoiceproducts][0][cantidad]"   maxlength="255" class="span5">
+
+            </td>
+            <td class="sonata-ba-td-s5155e451eee51_invoiceproducts-pesototal">
+                <input type="text" id="s5155e451eee51_invoiceproducts_0_pesototal" name="s5155e451eee51[invoiceproducts][0][pesototal]" class="" value="1">
+
+            </td>
+            <td class="sonata-ba-td-s5155e451eee51_invoiceproducts-product">
+                <div id="field_container_s5155e451eee51_invoiceproducts_0_product" class="field-container">
+                    <span id="field_widget_s5155e451eee51_invoiceproducts_0_product">
+                        <span id="short-object-description" class="badge badge-info">Leche2</span>
+                    </span>
+                    <span style="display: none">
+                        <input type="text" id="s5155e451eee51_invoiceproducts_0_product" name="s5155e451eee51[invoiceproducts][0][product]"   class="span5" value="1">
+                    </span>
+
+                    <span id="field_actions_s5155e451eee51_invoiceproducts_0_product" class="field-actions">
+
+
+                        <a href="/Symfony2/web/app_dev.php/admin/product_client/list?uniqid=s5155e485bf56f&amp;code=sonata.client.productclient&amp;pcode=sonata.admin.pedidos&amp;puniqid=s5155e485ba994" onclick="return start_field_dialog_form_list_s5155e451eee51_invoiceproducts_0_product(this);" class="btn sonata-ba-action" title="List">
+                            <i class="icon-list"></i>
+                            List
+                        </a>
+
+
+                        <a href="" onclick="return remove_selected_element_s5155e451eee51_invoiceproducts_0_product(this);" class="btn sonata-ba-action" title="Delete">
+                            <i class="icon-off"></i>
+                            Delete
+                        </a>
+                    </span>
+
+                    <div class="container sonata-ba-modal sonata-ba-modal-edit-one-to-one" style="display: none" id="field_dialog_s5155e451eee51_invoiceproducts_0_product">
+
+                    </div>
+                </div>
+            </td>
+            <td class="sonata-ba-td-s5155e451eee51_invoiceproducts-subtotal">
+                <input type="text" id="s5155e451eee51_invoiceproducts_0_subtotal" name="s5155e451eee51[invoiceproducts][0][subtotal]" readonly="readonly" class="" value="1">
+
+            </td>
+        </tr>
+        <tr>
+            
+            <td class="sonata-ba-td-s5155e451eee51_invoiceproducts-cantidad">
+                <input type="text" id="s5155e451eee51_invoiceproducts_1_cantidad" name="s5155e451eee51[invoiceproducts][1][cantidad]"   maxlength="255" class="span5">
+
+            </td>
+            <td class="sonata-ba-td-s5155e451eee51_invoiceproducts-pesototal">
+                <input type="text" id="s5155e451eee51_invoiceproducts_1_pesototal" name="s5155e451eee51[invoiceproducts][1][pesototal]" class="">
+
+            </td>
+            <td class="sonata-ba-td-s5155e451eee51_invoiceproducts-product">
+                <div id="field_container_s5155e451eee51_invoiceproducts_1_product" class="field-container">
+                    <span id="field_widget_s5155e451eee51_invoiceproducts_1_product"><span id="short-object-description" class="badge badge-info">Huevos</span>
+                    </span>
+                    <span style="display: none">
+                        <input type="text" id="s5155e451eee51_invoiceproducts_1_product" name="s5155e451eee51[invoiceproducts][1][product]"   class="span5">
+                    </span>
+
+                    <span id="field_actions_s5155e451eee51_invoiceproducts_1_product" class="field-actions">
+
+
+                        <a href="/Symfony2/web/app_dev.php/admin/product_client/list?uniqid=s5155e485c0df9&amp;code=sonata.client.productclient&amp;pcode=sonata.admin.pedidos&amp;puniqid=s5155e485ba994" onclick="return start_field_dialog_form_list_s5155e451eee51_invoiceproducts_1_product(this);" class="btn sonata-ba-action" title="List">
+                            <i class="icon-list"></i>
+                            List
+                        </a>
+
+                        <a href="" onclick="return remove_selected_element_s5155e451eee51_invoiceproducts_1_product(this);" class="btn sonata-ba-action" title="Delete">
+                            <i class="icon-off"></i>
+                            Delete
+                        </a>
+                    </span>
+                </div>
+            </td>
+            <td class="sonata-ba-td-s5155e451eee51_invoiceproducts-subtotal">
+                <input type="text" id="s5155e451eee51_invoiceproducts_1_subtotal" name="s5155e451eee51[invoiceproducts][1][subtotal]" readonly="readonly" class="" value="1">
+
+            </td>
+        </tr>
+    </tbody>
+</table>
+{% endblock %}

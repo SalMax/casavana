@@ -12,7 +12,7 @@ sonata_admin:
  
         # default actions templates, should extend a global templates
         list:    SonataAdminBundle:CRUD:list.html.twig
-        show:    SonataAdminBundle:CRUD:show.html.twig
+        show:    CasavanaCOBDBundle:CRUD:show.html.twig
         edit:    CasavanaCOBDBundle:CRUD:edit.html.twig
         
         # default values of helper templates

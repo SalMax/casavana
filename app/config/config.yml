@@ -82,7 +82,7 @@ sonata_doctrine_orm_admin:
  
     templates:
         form:
-            - SonataDoctrineORMAdminBundle:Form:form_admin_fields.html.twig
+            - CasavanaCOBDBundle:ORMForms:form_admin_fields.html.twig
         filter:
             - SonataDoctrineORMAdminBundle:Form:filter_admin_fields.html.twig
         types:
@@ -114,4 +114,10 @@ sonata_doctrine_orm_admin:
                 bigint:     SonataAdminBundle:CRUD:base_show_field.html.twig
                 integer:    SonataAdminBundle:CRUD:base_show_field.html.twig
                 decimal:    SonataAdminBundle:CRUD:base_show_field.html.twig
+services:
+  CasavanaCO.BDBundle.Form.Type.ListaProductos:
+    class: CasavanaCO\BDBundle\Form\Type\ListaProductos
+    tags:
+        - { name: form.type, alias: listaproductos }
         
+    

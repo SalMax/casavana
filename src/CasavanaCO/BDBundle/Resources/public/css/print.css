@@ -1,0 +1,15 @@
+/* 
+    Document   : print
+    Created on : 05-abr-2013, 16:47:57
+    Author     : Sergio Álvarez López <salmaxcraft@gmail.com>
+    Description:
+        Print view
+*/
+
+body {visibility:hidden;}
+
+.print {
+    visibility:visible;
+    margin-top: -5cm;
+}
+

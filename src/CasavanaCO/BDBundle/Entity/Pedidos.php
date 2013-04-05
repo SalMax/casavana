@@ -156,5 +156,7 @@ class Pedidos {
     public function getSubtotal() {
         return $this->subtotal;
     }
+    
+    
 
 }

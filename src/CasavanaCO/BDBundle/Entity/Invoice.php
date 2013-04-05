@@ -4,6 +4,8 @@ namespace CasavanaCO\BDBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use CasavanaCO\BDBundle\ApplicationBoot;
+
 /**
  * Invoice
  *
@@ -45,6 +47,14 @@ class Invoice{
     protected $price;
     
     /**
+     * @var float
+     *
+     * @ORM\Column(type="decimal", scale=2, nullable=true)
+     */
+    protected $adjust;
+    
+    
+    /**
      * @var string
      *
      * @ORM\Column(type="string", length=45, nullable=false)
@@ -64,6 +74,8 @@ class Invoice{
      * @ORM\Column(type="date")
      */
     protected $lastmodify;
+    
+    
 
     /**
      * Constructor
@@ -137,6 +149,28 @@ class Invoice{
     public function getPrice()
     {
         return $this->price;
+    }
+    
+    /**
+     * Set price
+     *
+     * @param float $price
+     * @return Invoice
+     */
+    public function setAdjust($adjust)
+    {
+        $this->adjust = $adjust;
+        return $this;
+    }
+
+    /**
+     * Get price
+     *
+     * @return float 
+     */
+    public function getAdjust()
+    {
+        return $this->adjust;
     }
 
     /**
@@ -241,6 +275,25 @@ class Invoice{
     public function getInvoiceproducts()
     {
         return $this->invoiceproducts;
+    }
+    
+    public function getallproducts()
+    {
+        //Preparamos conexion
+        $container = ApplicationBoot::getContainer();
+        $repository = $container->get('doctrine')->getRepository('CasavanaCOBDBundle:Product');
+        
+        // recupera TODOS los productos
+        $products = $repository->findAll();
+        
+        $result = array();
+        
+        foreach ($products as $p) {
+            $result[$p->getName()] = $p->getPrice();
+        }
+        
+        return $result;
+       
     }
     
 }
