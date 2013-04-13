@@ -37,6 +37,7 @@ class InvoiceClient extends Admin {
             }
             //}
         }
+		$suma_precio += $invoice->getAdjust();
         //$this->getForm()->getAttribute('cantidad');
         return $suma_precio;
     }
