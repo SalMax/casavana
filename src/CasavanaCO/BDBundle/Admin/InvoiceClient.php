@@ -7,11 +7,68 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use CasavanaCO\BDBundle\Entity\Pedidos;
 
 class InvoiceClient extends Admin {
 
     protected $baseRouteName = 'invoice_client';
     protected $baseRoutePattern = 'invoice_client';
+
+    private function Inicializar_Invoice() {
+
+        //Preparamos el invoice
+        $em = $this->getConfigurationPool()->getContainer()->get('doctrine')->getEntityManager();
+        $this->prePersist($this->getSubject());
+        //$em->persist($this->getSubject());
+        //$em->flush();
+
+        $conn = $this->getConfigurationPool()->getContainer()->get('database_connection');
+        $productos = $this->getSubject()->getallproductsObjects();
+        $nproductos = count($productos);
+        $pedidos = array($nproductos);
+        $i = 1;
+
+        foreach ($productos as $p) {
+            $existe = false;
+            $pedidos_del_invoice = $this->getSubject()->getInvoiceproducts();
+            foreach ($pedidos_del_invoice as $pi) {
+                if ($pi->getProduct()->getId() == $p->getId()) {
+                    $existe = true;
+                    $nproductos--;
+                }
+            }
+
+            if ($existe == false) {
+
+                $pedidos[$i] = new Pedidos();
+                $pedidos[$i]->setPesototal(0);
+                $pedidos[$i]->setCantidad(0);
+                $pedidos[$i]->setSubtotal(0);
+                $em->persist($pedidos[$i]);
+                $em->flush();
+                
+                $sql = 'UPDATE Pedidos SET product_id=' . $p->getId() . ' WHERE id=' . $pedidos[$i]->getId();
+                $rows = $conn->query($sql);
+                //$sql = 'UPDATE Pedidos SET invoice_id='.$this->getSubject()->getId().' WHERE id=' . $pedidos[$i]->getId();
+                //$rows = $conn->query($sql);
+                
+                $i++;
+            }
+        }
+        
+        for ($i = 1; $i <= $nproductos; $i++) {
+            $pedidos[$i]->setInvoice($this->getSubject());
+            
+            //$em->persist($pedidos[$i]);
+            //$em->flush();
+            //$em->persist($pedidos[$i]);
+            //$em->flush();
+            //$this->getSubject()->setPrice($i);
+            //$this->getSubject()->addInvoiceproduct($pedidos[$i]);
+            //$em->persist($pedidos[$i]);
+            //$em->flush();
+        }
+    }
 
     private function Total_Price($invoice) {
 
@@ -37,7 +94,7 @@ class InvoiceClient extends Admin {
             }
             //}
         }
-		$suma_precio += $invoice->getAdjust();
+        $suma_precio += $invoice->getAdjust();
         //$this->getForm()->getAttribute('cantidad');
         return $suma_precio;
     }
@@ -47,10 +104,8 @@ class InvoiceClient extends Admin {
         //Si el pedido está cerrado
         //Solo escritura
         if (strcmp($this->getSubject()->getStatus(), 'closed') == 0) {
-
             $formMapper
-                    
-                    ->add('invoiceproducts', 'sonata_type_collection', array('label' => 'Products','read_only' => true), array(
+                    ->add('invoiceproducts', 'sonata_type_collection', array('label' => 'Products', 'read_only' => true), array(
                         'edit' => 'inline',
                         'inline' => 'table',
                         'sortable' => 'position'))
@@ -58,18 +113,20 @@ class InvoiceClient extends Admin {
                     ->add('status', null, array('read_only' => true))
             ;
         }
+
         //Si no esta cerrado
         //Se puede modificar
         else {
-                        
+            $this->Inicializar_Invoice();
+
             $formMapper
                     ->with('Productos')
-                        ->add('invoiceproducts', 'sonata_type_collection', array('label' => 'Products'), array('edit' => 'inline','inline' => 'table','sortable' => 'position'))
-                        //->add('invoiceproducts', 'listaproductos', array(), array())
+                    ->add('invoiceproducts', 'sonata_type_collection', array('label' => 'Products'), array('edit' => 'inline', 'inline' => 'table', 'sortable' => 'position'))
+                    //->add('invoiceproducts', 'listaproductos', array(), array())
                     ->end()
                     ->add('price', null, array('read_only' => true))
                     ->add('status', null, array('read_only' => true))
-                ;
+            ;
         }
     }
 
@@ -86,9 +143,9 @@ class InvoiceClient extends Admin {
                 ->add('price')
                 ->add('status')
                 ->add('_action', 'actions', array(
-                  'actions' => array(
-                  'view' => array()
-                      )))
+                    'actions' => array(
+                        'view' => array()
+            )))
         //->add('status','choice', array('choices' => array('opened' => 'Opened', 'processing' => 'Processing', 'closed' => 'Closed')))
         /* ->add('_action', 'actions', array(
           'actions' => array(
@@ -99,27 +156,24 @@ class InvoiceClient extends Admin {
           'delete' => array()))) */
         ;
     }
-    
+
     /**
      * {@inheritdoc}
      */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
+    protected function configureShowFields(ShowMapper $showMapper) {
         $showMapper
-                ->add('id', null, array('label'=>'Invoice Id'))
+                ->add('id', null, array('label' => 'Invoice Id'))
                 ->add('invoiceDate', null, array('label' => 'Invoice date'))
-                ->add('clientname', null, array('label'=>'Client'))
+                ->add('clientname', null, array('label' => 'Client'))
                 ->add('price', null, array('template' => 'CasavanaCOBDBundle:ORMCRUD:show_price_field.html.twig'))
-                ->add('invoiceproducts', null , 
-                        array('template' => 'CasavanaCOBDBundle:ORMCRUD:show_orm_one_to_many.html.twig','label' => 'Products'), 
-                        array()
-                    )
-                ->add('adjust', null, array ('label' => 'Price adjust ($)'))
-                
-            
+                ->add('invoiceproducts', null, array('template' => 'CasavanaCOBDBundle:ORMCRUD:show_orm_one_to_many.html.twig', 'label' => 'Products'), array()
+                )
+                ->add('adjust', null, array('label' => 'Price adjust ($)'))
+
+
         ;
     }
-    
+
     public function prePersist($invoice) {
         $currentTime = new \DateTime(date('m/d/Y h:i:s a', time()));
         $invoice->setInvoiceDate($currentTime);
@@ -149,6 +203,12 @@ class InvoiceClient extends Admin {
             }
         }
     }
+    
+    public function postPersist($invoice) {
+        $conn = $this->getConfigurationPool()->getContainer()->get('database_connection');
+        $sql = 'DELETE FROM Pedidos WHERE invoice_id IS NULL';
+        $rows = $conn->query($sql);
+    }
 
     public function preUpdate($invoice) {
         $currentTime = new \DateTime(date('m/d/Y h:i:s a', time()));
@@ -170,5 +230,11 @@ class InvoiceClient extends Admin {
         }
     }
     
-    
+   public function postUpdate($invoice) {
+        $conn = $this->getConfigurationPool()->getContainer()->get('database_connection');
+        $sql = 'DELETE FROM Pedidos WHERE invoice_id IS NULL';
+        $rows = $conn->query($sql);
+    }
 }
+
+              

@@ -45,6 +45,15 @@ class Pedidos {
     protected $invoice;
 
     /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        
+
+    }
+    
+    /**
      * Get id
      *
      * @return integer 

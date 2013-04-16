@@ -296,4 +296,15 @@ class Invoice{
        
     }
     
+    public function getallproductsObjects()
+    {
+        //Preparamos conexion
+        $container = ApplicationBoot::getContainer();
+        $repository = $container->get('doctrine')->getRepository('CasavanaCOBDBundle:Product');
+ 
+        // recupera TODOS los productos
+        return $repository->findAll();
+;
+    }
+    
 }

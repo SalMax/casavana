@@ -281,4 +281,10 @@ class Product
     {
         return $this->pedidos;
     }
+    
+    public function get(){
+        return $this;
+    }
+    
+    
 }
