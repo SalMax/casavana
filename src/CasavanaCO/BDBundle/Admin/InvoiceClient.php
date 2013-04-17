@@ -14,6 +14,36 @@ class InvoiceClient extends Admin {
     protected $baseRouteName = 'invoice_client';
     protected $baseRoutePattern = 'invoice_client';
 
+    private function initInvoice(){
+
+        //Conexion para obtener productos
+        $doctrine = $this->getConfigurationPool()->getContainer()->get('doctrine');
+        $em = $doctrine->getEntityManager();
+        $repository = $em->getRepository('CasavanaCOBDBundle:Product');
+ 
+        // recupera los productos
+        $productos = $repository->findAll();
+
+        //Vamos a crear una lista de productos en el mismo orden con el que vienen de la base de datos.
+        $pedidos_del_invoice = $this->getSubject()->getInvoiceproducts();
+        $existe = False;
+        foreach ($productos as $producto){
+            $pedido_vacio = new Pedidos();
+            foreach ($pedidos_del_invoice as $pedido_existente) {
+                if ($pedido_existente->getProduct()->getId() == $producto->getId()) {
+                    $existe = True;
+                    break; //si lo encontramos, rompemos el bucle
+                }
+            }
+            if($existe==False){
+                $pedido_vacio->setProduct($producto);
+                $pedido_vacio->setCantidad = 0;
+                $this->getSubject()->addInvoiceproduct($pedido_vacio); //Agregamos el pedido vacio
+            }
+            
+        }        
+    }
+
     private function Inicializar_Invoice() {
 
         //Preparamos el invoice
@@ -117,7 +147,8 @@ class InvoiceClient extends Admin {
         //Si no esta cerrado
         //Se puede modificar
         else {
-            $this->Inicializar_Invoice();
+            //$this->Inicializar_Invoice();
+            $this->initInvoice();
 
             $formMapper
                     ->with('Productos')
