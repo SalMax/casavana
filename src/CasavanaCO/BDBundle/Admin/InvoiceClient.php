@@ -14,20 +14,20 @@ class InvoiceClient extends Admin {
     protected $baseRouteName = 'invoice_client';
     protected $baseRoutePattern = 'invoice_client';
 
-    private function initInvoice(){
+    private function initInvoice() {
 
         //Conexion para obtener productos
         $doctrine = $this->getConfigurationPool()->getContainer()->get('doctrine');
         $em = $doctrine->getEntityManager();
         $repository = $em->getRepository('CasavanaCOBDBundle:Product');
- 
+
         // recupera los productos
         $productos = $repository->findAll();
 
         //Vamos a crear una lista de productos en el mismo orden con el que vienen de la base de datos.
         $pedidos_del_invoice = $this->getSubject()->getInvoiceproducts();
         $existe = False;
-        foreach ($productos as $producto){
+        foreach ($productos as $producto) {
             $pedido_vacio = new Pedidos();
             foreach ($pedidos_del_invoice as $pedido_existente) {
                 if ($pedido_existente->getProduct()->getId() == $producto->getId()) {
@@ -35,13 +35,12 @@ class InvoiceClient extends Admin {
                     break; //si lo encontramos, rompemos el bucle
                 }
             }
-            if($existe==False){
+            if ($existe == False) {
                 $pedido_vacio->setProduct($producto);
                 $pedido_vacio->setCantidad = 0;
                 $this->getSubject()->addInvoiceproduct($pedido_vacio); //Agregamos el pedido vacio
             }
-            
-        }        
+        }
     }
 
     private function Inicializar_Invoice() {
@@ -76,19 +75,19 @@ class InvoiceClient extends Admin {
                 $pedidos[$i]->setSubtotal(0);
                 $em->persist($pedidos[$i]);
                 $em->flush();
-                
+
                 $sql = 'UPDATE Pedidos SET product_id=' . $p->getId() . ' WHERE id=' . $pedidos[$i]->getId();
                 $rows = $conn->query($sql);
                 //$sql = 'UPDATE Pedidos SET invoice_id='.$this->getSubject()->getId().' WHERE id=' . $pedidos[$i]->getId();
                 //$rows = $conn->query($sql);
-                
+
                 $i++;
             }
         }
-        
+
         for ($i = 1; $i <= $nproductos; $i++) {
             $pedidos[$i]->setInvoice($this->getSubject());
-            
+
             //$em->persist($pedidos[$i]);
             //$em->flush();
             //$em->persist($pedidos[$i]);
@@ -233,13 +232,21 @@ class InvoiceClient extends Admin {
                 $producto = $pedido_i->setInvoice($invoice);
             }
         }
+
+        //Borramos los pedidos con unidad 0 y peso a 0 antes de grabarlos
+        $pedidos = $this->getSubject()->getInvoiceproducts();
+        foreach ($pedidos as $pedido) {
+            if ($pedido->getCantidad() == 0 && $pedido->getPesototal() == 0) {
+                $this->getSubject()->removeInvoiceproduct($pedido);
+            }
+        }
     }
-    
-    public function postPersist($invoice) {
-        $conn = $this->getConfigurationPool()->getContainer()->get('database_connection');
-        $sql = 'DELETE FROM Pedidos WHERE invoice_id IS NULL';
-        $rows = $conn->query($sql);
-    }
+
+    /* public function postPersist($invoice) {
+      $conn = $this->getConfigurationPool()->getContainer()->get('database_connection');
+      $sql = 'DELETE FROM Pedidos WHERE invoice_id IS NULL';
+      $rows = $conn->query($sql);
+      } */
 
     public function preUpdate($invoice) {
         $currentTime = new \DateTime(date('m/d/Y h:i:s a', time()));
@@ -259,13 +266,21 @@ class InvoiceClient extends Admin {
                 $producto = $pedido_i->setInvoice($invoice);
             }
         }
+
+        //Borramos los pedidos con unidad 0 y peso a 0 antes de grabarlos
+        $pedidos = $this->getSubject()->getInvoiceproducts();
+        foreach ($pedidos as $pedido) {
+            if ($pedido->getCantidad() == 0 && $pedido->getPesototal() == 0) {
+                $this->getSubject()->removeInvoiceproduct($pedido);
+            }
+        }
+        
     }
-    
-   public function postUpdate($invoice) {
-        $conn = $this->getConfigurationPool()->getContainer()->get('database_connection');
-        $sql = 'DELETE FROM Pedidos WHERE invoice_id IS NULL';
-        $rows = $conn->query($sql);
-    }
+
+    /* public function postUpdate($invoice) {
+      $conn = $this->getConfigurationPool()->getContainer()->get('database_connection');
+      $sql = 'DELETE FROM Pedidos WHERE invoice_id IS NULL';
+      $rows = $conn->query($sql);
+      } */
 }
 
-              
