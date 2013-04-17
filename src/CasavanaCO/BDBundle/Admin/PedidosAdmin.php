@@ -19,7 +19,7 @@ class PedidosAdmin extends Admin {
         // El super administrador tiene todos los roles, solo hay que comprobar para el MANAGER
         if ($this->getConfigurationPool()->getContainer()->get('security.context')->isGranted('ROLE_MANAGER')){
             $formMapper
-                    ->add('cantidad', null, array('label' => "Units"))
+                    ->add('cantidad', null, array('label' => "Units",'required' => false,'empty_data' => '0'))
                     ->add('pesototal', null, array('label' => "Invoice Weight (lbs.)", 'empty_data' => '0', 'required' => false))
                     ->add('product', 'sonata_type_model_list', array('required' => true))
                     ->add('subtotal', null, array('label' => "Subtotal", 'read_only' => true, 'empty_data' => '0', 'required' => false))
@@ -28,7 +28,7 @@ class PedidosAdmin extends Admin {
             
         }else if(($this->getConfigurationPool()->getContainer()->get('security.context')->isGranted('ROLE_CLIENT'))){
             $formMapper
-                    ->add('cantidad', null, array('label' => "Units"))
+                    ->add('cantidad', null, array('label' => "Units",'required' => false,'empty_data' => '0'))
                     ->add('product', 'sonata_type_model_list', array('required' => true))
 
             ;
