@@ -16,6 +16,7 @@ class PedidosAdmin extends Admin {
      */
     protected function configureFormFields(FormMapper $formMapper) {
         
+        // El super administrador tiene todos los roles, solo hay que comprobar para el MANAGER
         if ($this->getConfigurationPool()->getContainer()->get('security.context')->isGranted('ROLE_MANAGER')){
             $formMapper
                     ->add('cantidad', null, array('label' => "Units"))
