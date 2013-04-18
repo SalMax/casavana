@@ -39,6 +39,8 @@ file that was distributed with this source code.
 	                                		{{ form_widget(nested_field, {'attr': {'style': 'width: 50px; text-align: center;'}}) }}
 	                                	{% elseif field_name=='pesototal'%}
 	                                		{{ form_widget(nested_field, {'attr': {'style': 'width: 150px; text-align: center;'}}) }}
+	                                	{% elseif field_name=='product'%}
+	                                		{{ form_widget(nested_field) }}
 	                                	{% else %}
 	                                        {{ form_widget(nested_field) }}
 	                                     {% endif %}

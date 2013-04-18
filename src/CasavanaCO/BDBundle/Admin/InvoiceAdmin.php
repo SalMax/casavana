@@ -7,6 +7,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use CasavanaCO\BDBundle\Entity\Pedidos;
 
 class InvoiceAdmin extends Admin {
 
@@ -43,7 +44,38 @@ class InvoiceAdmin extends Admin {
         return $suma_precio;
     }
 
+    private function initInvoice() {
+
+        //Conexion para obtener productos
+        $doctrine = $this->getConfigurationPool()->getContainer()->get('doctrine');
+        $em = $doctrine->getEntityManager();
+        $repository = $em->getRepository('CasavanaCOBDBundle:Product');
+
+        // recupera los productos
+        $productos = $repository->findAll();
+
+        //Vamos a crear una lista de productos en el mismo orden con el que vienen de la base de datos.
+        $pedidos_del_invoice = $this->getSubject()->getInvoiceproducts();
+        foreach ($productos as $producto) {
+            $existe = False;
+            $pedido_vacio = new Pedidos();
+            foreach ($pedidos_del_invoice as $pedido_existente) {
+                if ($pedido_existente->getProduct()->getId() == $producto->getId()) {
+                    $existe = True;
+                }
+            }
+            if ($existe == False) {
+                $pedido_vacio->setProduct($producto);
+                $pedido_vacio->setCantidad = 0;
+                $this->getSubject()->addInvoiceproduct($pedido_vacio); //Agregamos el pedido vacio
+            }
+        }
+    }
+
     protected function configureFormFields(FormMapper $formMapper) {
+
+        $this->initInvoice();
+
         $formMapper
                 ->add('invoiceproducts', 'sonata_type_collection', array(), array(
                     'edit' => 'inline',
@@ -117,6 +149,14 @@ class InvoiceAdmin extends Admin {
                 $producto = $pedido_i->setInvoice($invoice);
             }
         }
+
+        //Borramos los pedidos con unidad 0 y peso a 0 antes de grabarlos
+        $pedidos = $this->getSubject()->getInvoiceproducts();
+        foreach ($pedidos as $pedido) {
+            if ($pedido->getCantidad() == 0 && $pedido->getPesototal() == 0) {
+                $this->getSubject()->removeInvoiceproduct($pedido);
+            }
+        }
     }
 
     public function preUpdate($invoice) {
@@ -129,6 +169,14 @@ class InvoiceAdmin extends Admin {
             //for ( $i = 0 ; $i < count($pedidos) ; $i ++) {
             if (isset($pedido_i)) {
                 $producto = $pedido_i->setInvoice($invoice);
+            }
+        }
+
+        //Borramos los pedidos con unidad 0 y peso a 0 antes de grabarlos
+        $pedidos = $this->getSubject()->getInvoiceproducts();
+        foreach ($pedidos as $pedido) {
+            if ($pedido->getCantidad() == 0 && $pedido->getPesototal() == 0) {
+                $this->getSubject()->removeInvoiceproduct($pedido);
             }
         }
     }
