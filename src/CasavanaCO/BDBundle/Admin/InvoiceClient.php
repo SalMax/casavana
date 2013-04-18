@@ -43,62 +43,6 @@ class InvoiceClient extends Admin {
         }
     }
 
-    private function Inicializar_Invoice() {
-
-        //Preparamos el invoice
-        $em = $this->getConfigurationPool()->getContainer()->get('doctrine')->getEntityManager();
-        $this->prePersist($this->getSubject());
-        //$em->persist($this->getSubject());
-        //$em->flush();
-
-        $conn = $this->getConfigurationPool()->getContainer()->get('database_connection');
-        $productos = $this->getSubject()->getallproductsObjects();
-        $nproductos = count($productos);
-        $pedidos = array($nproductos);
-        $i = 1;
-
-        foreach ($productos as $p) {
-            $existe = false;
-            $pedidos_del_invoice = $this->getSubject()->getInvoiceproducts();
-            foreach ($pedidos_del_invoice as $pi) {
-                if ($pi->getProduct()->getId() == $p->getId()) {
-                    $existe = true;
-                    $nproductos--;
-                }
-            }
-
-            if ($existe == false) {
-
-                $pedidos[$i] = new Pedidos();
-                $pedidos[$i]->setPesototal(0);
-                $pedidos[$i]->setCantidad(0);
-                $pedidos[$i]->setSubtotal(0);
-                $em->persist($pedidos[$i]);
-                $em->flush();
-
-                $sql = 'UPDATE Pedidos SET product_id=' . $p->getId() . ' WHERE id=' . $pedidos[$i]->getId();
-                $rows = $conn->query($sql);
-                //$sql = 'UPDATE Pedidos SET invoice_id='.$this->getSubject()->getId().' WHERE id=' . $pedidos[$i]->getId();
-                //$rows = $conn->query($sql);
-
-                $i++;
-            }
-        }
-
-        for ($i = 1; $i <= $nproductos; $i++) {
-            $pedidos[$i]->setInvoice($this->getSubject());
-
-            //$em->persist($pedidos[$i]);
-            //$em->flush();
-            //$em->persist($pedidos[$i]);
-            //$em->flush();
-            //$this->getSubject()->setPrice($i);
-            //$this->getSubject()->addInvoiceproduct($pedidos[$i]);
-            //$em->persist($pedidos[$i]);
-            //$em->flush();
-        }
-    }
-
     private function Total_Price($invoice) {
 
         $suma_precio = 0;
@@ -151,8 +95,8 @@ class InvoiceClient extends Admin {
 
             $formMapper
                     ->with('Productos')
-                    //->add('invoiceproducts', 'sonata_type_collection', array('label' => 'Products'), array('edit' => 'inline', 'inline' => 'table', 'sortable' => 'position'))
                     ->add('invoiceproducts', 'sonata_type_collection', array('label' => 'Products'), array('edit' => 'inline', 'inline' => 'table', 'sortable' => 'position'))
+                    //->add('invoiceproducts', 'listaproductos', array('label' => 'Products'), array('edit' => 'inline', 'inline' => 'table', 'sortable' => 'position'))
                     ->end()
                     ->add('price', null, array('read_only' => true))
                     ->add('status', null, array('read_only' => true))

@@ -1,11 +1,54 @@
-{{ id }}
+{#
 
-{{ sonata_admin.admin.root.uniqid }}
+This file is part of the Sonata package.
 
-{{ sonata_block_render({
-    'type': 'casavana.block.products',
-    'settings': {
-        'title': '{{ id }}',
-        'url': 'http://sonata-project.org/blog/archive.rss'
-    }
-}) }}
+(c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+#}
+<h1>Custom product list</h1>
+{% if not sonata_admin.field_description.hasassociationadmin %}
+    {% for element in value %}
+        {{ element|render_relation_element(sonata_admin.field_description) }}
+    {% endfor %}
+{% else %}
+
+    <div id="field_container_{{ id }}" class="field-container span8">
+        <span id="field_widget_{{ id }}" >
+	        {% if form.children|length > 0 %}
+	            <table class="table table-bordered">
+	                <thead>
+	                    <tr>
+	                        {% for field_name, nested_field in form.children[0].children %}
+	                            {% if field_name != '_delete' %}
+	                                <th>{{ nested_field.vars['sonata_admin'].admin.trans(nested_field.vars.label) }}</th>
+	                            {% endif %}
+	                        {% endfor %}
+	                    </tr>
+	                </thead>
+	                <tbody class="sonata-ba-tbody">
+	                    {% for nested_group_field_name, nested_group_field in form.children %}
+	                        <tr>
+	                            {% for field_name, nested_field in nested_group_field.children %}
+	                            	{% if sonata_admin.field_description.associationadmin.formfielddescriptions[field_name] is defined %}
+	                                <td class="sonata-ba-td-{{ id }}-{{ field_name  }}{% if nested_field.vars.errors|length > 0 %} error{% endif %}">
+	                                        {{ form_widget(nested_field) }}
+	                                        {% set dummy = nested_group_field.setrendered %}
+	                                    {% if nested_field.vars.errors|length > 0 %}
+	                                        <div class="sonata-ba-field-error-messages">
+	                                            {{ form_errors(nested_field) }}
+	                                        </div>
+	                                    {% endif %}
+	                                </td>
+	                                {% endif %}
+	                            {% endfor %}
+	                        </tr>
+	                    {% endfor %}
+	                </tbody>
+	            </table>
+	        {% endif %}
+        </span>
+    </div>
+{% endif %}

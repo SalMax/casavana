@@ -18,7 +18,6 @@ use Sonata\AdminBundle\Form\EventListener\ResizeFormListener;
 
 class ListaProductos extends AbstractType
 {
-
     /**
      * {@inheritDoc}
      */
@@ -33,7 +32,15 @@ class ListaProductos extends AbstractType
 
         $builder->addEventSubscriber($listener);
     }
-    
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getParent()
+    {
+        return 'field';
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -45,15 +52,6 @@ class ListaProductos extends AbstractType
             'type_options'  => array()
         ));
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getParent()
-    {
-        return 'field';
-    }
-
 
     /**
      * {@inheritDoc}

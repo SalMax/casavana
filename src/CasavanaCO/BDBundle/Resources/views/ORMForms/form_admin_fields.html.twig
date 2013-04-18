@@ -29,7 +29,7 @@ file that was distributed with this source code.
     {% include 'CasavanaCOBDBundle:ORMCRUD:edit_orm_one_to_many.html.twig' %}
 {% endblock %}
 
-{% block casavana_lista_productos %}
+{% block casavana_lista_productos_widget %}
     {% include 'CasavanaCOBDBundle:Slices:productlist.html.twig' %}
 {% endblock %}
 
@@ -51,6 +51,8 @@ file that was distributed with this source code.
         {{ block('sonata_admin_orm_many_to_many_widget') }}
     {% elseif sonata_admin.field_description.mappingtype == 4 %}
         {{ block('sonata_admin_orm_one_to_many_widget') }}
+    {% elseif sonata_admin.field_description.mappingtype == 5%}
+        {{ block('casavana_lista_productos_widget') }}
     {% else %}
         {#INVALID MODE : {{ id }}#}
         {{ block('choice_widget') }}
@@ -136,7 +138,8 @@ file that was distributed with this source code.
 
 {% block sonata_type_collection_widget %}
     {% if sonata_admin.field_description.mappingtype == 4 %}
-        {{ block('sonata_admin_orm_one_to_many_widget') }}
+        {{ block('casavana_lista_productos_widget') }}
+        {# { block('sonata_admin_orm_one_to_many_widget') } #}
     {% else %}
         INVALID MODE : {{ id }} - type : sonata_type_collection - mapping : {{ sonata_admin.field_description.mappingtype }}
     {% endif %}
@@ -145,7 +148,7 @@ file that was distributed with this source code.
         
 {% block listaproductos_widget %}
     {% if sonata_admin.field_description.mappingtype == 4 %}
-        {{ block('casavana_lista_productos') }}
+        {{ block('casavana_lista_productos_widget') }}
     {% else %}
         INVALID MODE : {{ id }} - type : sonata_type_collection - mapping : {{ sonata_admin.field_description.mappingtype }}
     {% endif %}
