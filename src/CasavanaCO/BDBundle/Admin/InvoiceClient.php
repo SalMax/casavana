@@ -151,8 +151,8 @@ class InvoiceClient extends Admin {
 
             $formMapper
                     ->with('Productos')
+                    //->add('invoiceproducts', 'sonata_type_collection', array('label' => 'Products'), array('edit' => 'inline', 'inline' => 'table', 'sortable' => 'position'))
                     ->add('invoiceproducts', 'sonata_type_collection', array('label' => 'Products'), array('edit' => 'inline', 'inline' => 'table', 'sortable' => 'position'))
-                    //->add('invoiceproducts', 'listaproductos', array(), array())
                     ->end()
                     ->add('price', null, array('read_only' => true))
                     ->add('status', null, array('read_only' => true))
@@ -176,14 +176,6 @@ class InvoiceClient extends Admin {
                     'actions' => array(
                         'view' => array()
             )))
-        //->add('status','choice', array('choices' => array('opened' => 'Opened', 'processing' => 'Processing', 'closed' => 'Closed')))
-        /* ->add('_action', 'actions', array(
-          'actions' => array(
-          'act' => array('template' => 'CasavanaCOBDBundle:Invoice_List:Status.html.twig')))) */
-        /* ->add('_action', 'actions', array(
-          'actions' => array(
-          'edit' => array(),
-          'delete' => array()))) */
         ;
     }
 
