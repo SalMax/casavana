@@ -26,16 +26,17 @@ class InvoiceClient extends Admin {
 
         //Vamos a crear una lista de productos en el mismo orden con el que vienen de la base de datos.
         $pedidos_del_invoice = $this->getSubject()->getInvoiceproducts();
-        $existe = False;
         foreach ($productos as $producto) {
+            $existe = False;
             $pedido_vacio = new Pedidos();
             foreach ($pedidos_del_invoice as $pedido_existente) {
                 if ($pedido_existente->getProduct()->getId() == $producto->getId()) {
                     $existe = True;
-                    break; //si lo encontramos, rompemos el bucle
                 }
             }
             if ($existe == False) {
+                //$this->getSubject()->setPrice($i);
+               // $i++;
                 $pedido_vacio->setProduct($producto);
                 $pedido_vacio->setCantidad = 0;
                 $this->getSubject()->addInvoiceproduct($pedido_vacio); //Agregamos el pedido vacio
