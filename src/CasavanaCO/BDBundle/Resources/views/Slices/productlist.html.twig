@@ -8,14 +8,13 @@ For the full copyright and license information, please view the LICENSE
 file that was distributed with this source code.
 
 #}
-<h1>Custom product list</h1>
 {% if not sonata_admin.field_description.hasassociationadmin %}
     {% for element in value %}
         {{ element|render_relation_element(sonata_admin.field_description) }}
     {% endfor %}
 {% else %}
 
-    <div id="field_container_{{ id }}" class="field-container span8">
+    <div id="field_container_{{ id }}" class="field-container">
         <span id="field_widget_{{ id }}" >
 	        {% if form.children|length > 0 %}
 	            <table class="table table-bordered">
@@ -23,7 +22,9 @@ file that was distributed with this source code.
 	                    <tr>
 	                        {% for field_name, nested_field in form.children[0].children %}
 	                            {% if field_name != '_delete' %}
-	                                <th>{{ nested_field.vars['sonata_admin'].admin.trans(nested_field.vars.label) }}</th>
+	                                <th {%if nested_field.vars['sonata_admin'].admin.trans(nested_field.vars.label)=='Units'%} id="unit-container" style="width: 50px; text-align: center;" {% elseif nested_field.vars['sonata_admin'].admin.trans(nested_field.vars.label)=='Invoice Weight (lbs.)'%} style="width: 165px" {% endif %}>
+	                                	{{ nested_field.vars['sonata_admin'].admin.trans(nested_field.vars.label) }}
+	                                </th>
 	                            {% endif %}
 	                        {% endfor %}
 	                    </tr>
@@ -34,7 +35,13 @@ file that was distributed with this source code.
 	                            {% for field_name, nested_field in nested_group_field.children %}
 	                            	{% if sonata_admin.field_description.associationadmin.formfielddescriptions[field_name] is defined %}
 	                                <td class="sonata-ba-td-{{ id }}-{{ field_name  }}{% if nested_field.vars.errors|length > 0 %} error{% endif %}">
+	                                	{% if field_name=='cantidad' %}
+	                                		{{ form_widget(nested_field, {'attr': {'style': 'width: 50px; text-align: center;'}}) }}
+	                                	{% elseif field_name=='pesototal'%}
+	                                		{{ form_widget(nested_field, {'attr': {'style': 'width: 150px; text-align: center;'}}) }}
+	                                	{% else %}
 	                                        {{ form_widget(nested_field) }}
+	                                     {% endif %}
 	                                        {% set dummy = nested_group_field.setrendered %}
 	                                    {% if nested_field.vars.errors|length > 0 %}
 	                                        <div class="sonata-ba-field-error-messages">
