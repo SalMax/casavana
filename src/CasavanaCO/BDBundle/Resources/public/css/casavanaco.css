@@ -92,7 +92,12 @@
 
 
 /* HACKS */
-.foo{
-  width: auto;
+th.Units{
+  width: 50px;
+  text-align: center;
+}
+
+th.Product{
+  width: 200px;
 }
 

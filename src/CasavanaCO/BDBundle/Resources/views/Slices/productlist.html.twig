@@ -17,12 +17,12 @@ file that was distributed with this source code.
     <div id="field_container_{{ id }}" class="field-container">
         <span id="field_widget_{{ id }}" >
 	        {% if form.children|length > 0 %}
-	            <table class="table table-bordered">
+	            <table class="table table-bordered" style="width: auto;">
 	                <thead>
 	                    <tr>
 	                        {% for field_name, nested_field in form.children[0].children %}
 	                            {% if field_name != '_delete' %}
-	                                <th {%if nested_field.vars['sonata_admin'].admin.trans(nested_field.vars.label)=='Units'%} id="unit-container" style="width: 50px; text-align: center;" {% elseif nested_field.vars['sonata_admin'].admin.trans(nested_field.vars.label)=='Invoice Weight (lbs.)'%} style="width: 165px" {% endif %}>
+	                                <th class="{{ nested_field.vars['sonata_admin'].admin.trans(nested_field.vars.label) }}">
 	                                	{{ nested_field.vars['sonata_admin'].admin.trans(nested_field.vars.label) }}
 	                                </th>
 	                            {% endif %}
