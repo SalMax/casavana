@@ -35,8 +35,6 @@ class InvoiceClient extends Admin {
                 }
             }
             if ($existe == False) {
-                //$this->getSubject()->setPrice($i);
-               // $i++;
                 $pedido_vacio->setProduct($producto);
                 $pedido_vacio->setCantidad = 0;
                 $this->getSubject()->addInvoiceproduct($pedido_vacio); //Agregamos el pedido vacio
