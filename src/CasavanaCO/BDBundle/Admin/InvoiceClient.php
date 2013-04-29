@@ -9,10 +9,32 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use CasavanaCO\BDBundle\Entity\Pedidos;
 
+use CasavanaCO\BDBundle\Admin\Filter\OwnerInvoiceFilter;
+
 class InvoiceClient extends Admin {
 
     protected $baseRouteName = 'invoice_client';
     protected $baseRoutePattern = 'invoice_client';
+
+    /**
+     * @var \CasavanaCO\BDBundle\Admin\Filter\OwnerInvoiceFilter
+     */
+    private $ownerFilter;
+
+    public function setOwnerFilter(OwnerInvoiceFilter $filter){
+        $this->ownerFilter = $filter;
+    }
+
+    /**
+     * Con esto filtramos que un cliente solo vea sus propios invoices
+    */
+    public function createQuery($context = 'list')
+    {
+        $query = parent::createQuery($context);
+        $this->setOwnerFilter(new OwnerInvoiceFilter($this->getConfigurationPool()->getContainer()->get('security.context'), 'clientid'));
+        $this->ownerFilter->apply($query);
+        return $query;
+    }
 
     private function initInvoice() {
 
