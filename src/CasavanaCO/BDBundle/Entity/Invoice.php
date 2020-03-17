@@ -52,6 +52,13 @@ class Invoice{
      * @ORM\Column(type="decimal", scale=2, nullable=true)
      */
     protected $adjust;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $adjustComment;
     
     
     /**
@@ -74,6 +81,20 @@ class Invoice{
      * @ORM\Column(type="date")
      */
     protected $lastmodify;
+
+     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="date", nullable=true)
+     */
+    protected $expectedDelivery;
+
+     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="date", nullable=true)
+     */
+    protected $deliveryDay;
     
     
 
@@ -173,6 +194,29 @@ class Invoice{
         return $this->adjust;
     }
 
+     /**
+     * Set adjustComment
+     *
+     * @param string $adjustComment
+     * @return Invoice
+     */
+    public function setAdjustComment($adjustComment)
+    {
+        $this->adjustComment = $adjustComment;
+    
+        return $this;
+    }
+
+    /**
+     * Get adjustComment
+     *
+     * @return string 
+     */
+    public function getAdjustComment()
+    {
+        return $this->adjustComment;
+    }
+
     /**
      * Set status
      *
@@ -242,6 +286,52 @@ class Invoice{
         return $this->lastmodify;
     }
 
+    /**
+     * Set expectedDelivery
+     *
+     * @param \DateTime $expectedDelivery
+     * @return Invoice
+     */
+    public function setExpectedDelivery($expectedDelivery)
+    {
+        $this->expectedDelivery = $expectedDelivery;
+    
+        return $this;
+    }
+
+    /**
+     * Get expectedDelivery
+     *
+     * @return \DateTime 
+     */
+    public function getExpectedDelivery()
+    {
+        return $this->expectedDelivery;
+    }
+
+    /**
+     * Set deliveryDay
+     *
+     * @param \DateTime $deliveryDay
+     * @return Invoice
+     */
+    public function setDeliveryDay($deliveryDay)
+    {
+        $this->deliveryDay = $deliveryDay;
+    
+        return $this;
+    }
+
+    /**
+     * Get deliveryDay
+     *
+     * @return \DateTime 
+     */
+    public function getDeliveryDay()
+    {
+        return $this->deliveryDay;
+    }
+
 
 
     /**
@@ -275,36 +365,6 @@ class Invoice{
     public function getInvoiceproducts()
     {
         return $this->invoiceproducts;
-    }
-    
-    public function getallproducts()
-    {
-        //Preparamos conexion
-        $container = ApplicationBoot::getContainer();
-        $repository = $container->get('doctrine')->getRepository('CasavanaCOBDBundle:Product');
-        
-        // recupera TODOS los productos
-        $products = $repository->findAll();
-        
-        $result = array();
-        
-        foreach ($products as $p) {
-            $result[$p->getName()] = $p->getPrice();
-        }
-        
-        return $result;
-       
-    }
-    
-    public function getallproductsObjects()
-    {
-        //Preparamos conexion
-        $container = ApplicationBoot::getContainer();
-        $repository = $container->get('doctrine')->getRepository('CasavanaCOBDBundle:Product');
- 
-        // recupera TODOS los productos
-        return $repository->findAll();
-;
     }
     
 }

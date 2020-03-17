@@ -7,6 +7,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\AdminBundle\Form\FormMapper;
+use Symfony\Component\Validator\Constraints\Length;
 
 class CategoryAdmin extends Admin
 {
@@ -46,12 +47,12 @@ class CategoryAdmin extends Admin
     /**
      * {@inheritdoc}
      */
-    public function validate(ErrorElement $errorElement, $object)
-    {
-        $errorElement
-            ->with('name')
-                ->assertMaxLength(array('limit' => 32))
-            ->end()
-        ;
-    }
+    // public function validate(ErrorElement $errorElement, $object)
+    // {
+    //     $errorElement
+    //         ->with('name')
+    //             ->assertMaxLength(array('limit' => 32))
+    //         ->end()
+    //     ;
+    // }
 }

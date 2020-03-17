@@ -11,6 +11,12 @@ use CasavanaCO\BDBundle\Entity\Pedidos;
 
 class InvoiceAdmin extends Admin {
 
+    protected $datagridValues = array(
+        '_page' => 1,
+        '_sort_order' => 'DESC', // sort direction 
+        '_sort_by' => 'invoiceDate' // field name 
+    );
+
     private function Total_Price($invoice) {
 
         /* * ************************************** */
@@ -70,6 +76,17 @@ class InvoiceAdmin extends Admin {
                 $this->getSubject()->addInvoiceproduct($pedido_vacio); //Agregamos el pedido vacio
             }
         }
+
+        //Valores iniciales para las fechas de entrega del pedido
+        if ($this->getSubject()->getExpectedDelivery()==null){
+            $currentTime = new \DateTime(date('m/d/Y h:i:s a', time()));
+            $this->getSubject()->setExpectedDelivery($currentTime);
+        }
+
+        if ($this->getSubject()->getDeliveryDay()==null){
+            $currentTime = new \DateTime(date('m/d/Y h:i:s a', time()));
+            $this->getSubject()->setDeliveryDay($currentTime);
+        }
     }
 
     protected function configureFormFields(FormMapper $formMapper) {
@@ -83,6 +100,9 @@ class InvoiceAdmin extends Admin {
                     'sortable' => 'position'))
                 ->add('price', null, array('read_only' => true))
                 ->add('adjust', null, array('label'=>'Price adjust'))
+                ->add('adjustComment', null, array('label'=>'Adjust Comment'))
+                ->add('expectedDelivery', null, array('label'=>'Expected Delivery'))
+                ->add('deliveryDay', null, array('label'=>'Delivery Day'))
                 ->add('status', 'choice', array('choices' => array('opened' => 'Opened', 'processing' => 'Processing', 'closed' => 'Closed', 'modified by client' => 'Modified by client')))
         ;
     }

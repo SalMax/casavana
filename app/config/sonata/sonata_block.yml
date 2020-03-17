@@ -3,20 +3,16 @@ sonata_block:
     blocks:
         sonata.admin.block.admin_list:
             contexts:   [admin]
- 
+
         #sonata.admin_doctrine_orm.block.audit:
         #    contexts:   [admin]
- 
+
         sonata.block.service.text:   ~
         sonata.block.service.action: ~
         sonata.block.service.rss:    ~
-        sonata.block.service.product: ~
-        casavana.block.products: ~
-        
-        sonata.admin.product: ~
-        
+
         #casavana.service.product: ~
- 
+
         # Some specific block from the SonataMediaBundle
         #sonata.media.block.media:
         #sonata.media.block.gallery:

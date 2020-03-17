@@ -8,8 +8,20 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 
 class PedidosAdmin extends Admin {
+
+    /**
+     * Con esto conseguimos que en la vista de crear invoice: 
+     * - Desaparezca el boton de agregar producto, puesto que ya se muestra una lista con todos los productos disponibles para hacer pedidos
+     * - Desaparezca el chack para borar un pedido, puesto que basta con dejar las unidades de ese producto en blanco o a cero.
+     **/
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        $collection->remove('create');
+        $collection->remove('batch');
+    }
 
     /**
      * {@inheritdoc}

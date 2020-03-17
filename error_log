@@ -1,0 +1,2 @@
+[15-Mar-2020 20:39:16 UTC] PHP Fatal error:  Class 'Symfony\Component\Debug\Debug' not found in /home/sagasoft/public_html/casavana/app/console on line 22
+[15-Mar-2020 20:48:58 UTC] PHP Fatal error:  Class 'Symfony\Component\Debug\Debug' not found in /home/sagasoft/public_html/casavana/app/console on line 22

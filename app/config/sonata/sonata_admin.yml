@@ -2,23 +2,22 @@ sonata_admin:
     title:      Casavana Central Order
     title_logo: bundles/casavanacobd/img/casavana_logo.png
     templates:
-        
+
         #Casavana
-        layout:  CasavanaCOBDBundle::standard_layout.html.twig
-        ajax:    CasavanaCOBDBundle::ajax_layout.html.twig
+        layout:  SonataAdminBundle::standard_layout.html.twig
+        ajax:    SonataAdminBundle::ajax_layout.html.twig
         # default global templates
         #layout:  SonataAdminBundle::standard_layout.html.twig
         #ajax:    SonataAdminBundle::ajax_layout.html.twig
- 
+
         # default actions templates, should extend a global templates
         list:    SonataAdminBundle:CRUD:list.html.twig
-        show:    CasavanaCOBDBundle:CRUD:show.html.twig
-        edit:    CasavanaCOBDBundle:CRUD:edit.html.twig
-        
+        show:    SonataAdminBundle:CRUD:show.html.twig
+        edit:    SonataAdminBundle:CRUD:edit.html.twig
+
         # default values of helper templates
-        short_object_description: CasavanaCOBDBundle:Helper:short-object-description.html.twig
-        
-        
+        short_object_description: SonataAdminBundle:Helper:short-object-description.html.twig
+
     dashboard:
         blocks:
             # display a dashboard block
@@ -64,5 +63,3 @@ sonata_admin:
             EXPORT: EXPORT
             OPERATOR: OPERATOR
             MASTER: MASTER
-     
-        

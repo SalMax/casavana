@@ -1,7 +1,3 @@
-jms_security_extra:
-    secure_all_services: false
-    expressions: true
-    
 parameters:   
     security.acl.permission.map.class: Sonata\AdminBundle\Security\Acl\Permission\AdminPermissionMap
 
@@ -18,11 +14,11 @@ security:
 
     acl:
         connection: default
-    
+
     providers:
         fos_userbundle:
             id: fos_user.user_manager
-    
+
     firewalls:
 
         admin:
@@ -49,15 +45,14 @@ security:
                 failure_path:   null
             logout:       true
             anonymous: ~
-    
+
     access_control:
 
 #        - { path: ^/manager, role: ROLE_MANAGER }
 #        - { path: ^/client, role: ROLE_USER }
 #        - { path: ^/admin/dashboard, role: ROLE_USER }
         #- { path: ^/admin/casavanaco/bd/category/list, role: ROLE_MANAGER }
-        
-    
+
         # URL of FOSUserBundle which need to be available to anonymous users
         - { path: ^/_wdt, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/_profiler, role: IS_AUTHENTICATED_ANONYMOUSLY }
@@ -79,5 +74,3 @@ security:
         #  - { path: ^/admin, role: [ROLE_ADMIN, ROLE_SONATA_ADMIN] }
         - { path: ^/admin/, role: [ROLE_ADMIN, ROLE_MANAGER, ROLE_CLIENT] }
         - { path: ^/.*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        
-        

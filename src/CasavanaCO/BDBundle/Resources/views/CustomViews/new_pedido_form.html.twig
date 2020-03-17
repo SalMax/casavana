@@ -1,0 +1,98 @@
+{#
+
+ Con este template personalizamos la visualizacion de la lista de preductos (realmente, la lista de pedidos), cuando creamos un nuevo invoice
+
+#}
+
+{% use 'SonataAdminBundle:Form:form_admin_fields.html.twig' %}
+
+{% block sonata_admin_orm_one_to_many_widget %}
+
+{% if not sonata_admin.field_description.hasassociationadmin %}
+    {% for element in value %}
+        {{ element|render_relation_element(sonata_admin.field_description) }}
+    {% endfor %}
+{% else %}
+
+    <div id="field_container_{{ id }}" class="field-container">
+        <span id="field_widget_{{ id }}" >
+            {% if sonata_admin.edit == 'inline' %}
+                {% if sonata_admin.inline == 'table' %}
+                    {% if form.children|length > 0 %}
+	                    {# Categorias es un hash cuya clave es el nombre de la categoria y el valor es una array con los productos que partenecen a esa categoria #}
+	                    {% set categorias = {} %}
+	                    {% for element in value %}
+	                    	{% set cat = element.product.category.name %}
+						    {% if cat not in categorias|keys %}
+						    	{# Creamos una nueva clave en el hash de categorias y agregamos el id del producto #}
+						    	{% set categorias = categorias|merge({ (cat) : [element.product.id]}) %}
+						    {% else %}
+						    	{# Agregamos el id del producto array de la clave del hash correspondiente #}
+						    	{% set the_id = element.product.id %}
+						    	{% set the_array = categorias[cat]|merge([the_id]) %}
+						    	{% set categorias = categorias|merge({ (cat) : the_array }) %}
+						    {% endif %}
+						{% endfor %}
+						{# {{ form(form, {'method': 'GET'}) }} #}	
+						{% for categoria,id_products in categorias %} 
+	                        <table class="table table-bordered" style="width: auto;">
+				                <thead>
+				                	<tr>
+				                		<th colspan=3><h4>{{categoria}}</h4></th>
+				                	</tr>
+				                    <tr>
+				                        {% for field_name, nested_field in form.children[0].children %}
+				                            {% if field_name != '_delete' %}
+				                                <th class="{{ nested_field.vars['sonata_admin'].admin.trans(nested_field.vars.label) }}">
+				                                	{{ nested_field.vars['sonata_admin'].admin.trans(nested_field.vars.label) }}
+				                                </th>
+				                            {% endif %}
+				                        {% endfor %}
+				                    </tr>
+				                </thead>
+				                <tbody class="sonata-ba-tbody">
+				                    {% for nested_group_field in form.children %}
+				                    	{% set continue = false %}
+				                    	{% for field_name, nested_field in nested_group_field.children %}
+				                    		{% if (field_name=='product') and (nested_field.vars.value in id_products)%}
+				                    			{% set continue = true %} {# Si el id del producto esta en la categoria correspondiente, continuamos#}
+				                    		{% endif %}
+				                    	{% endfor %}
+				                    	{% if continue %}
+				                        <tr>
+				                            {% for field_name, nested_field in nested_group_field.children %}
+				                            	{% if sonata_admin.field_description.associationadmin.formfielddescriptions[field_name] is defined %}
+				                                <td class="sonata-ba-td-{{ id }}-{{ field_name  }}{% if nested_field.vars.errors|length > 0 %} error{% endif %}">
+				                                	{% if field_name=='cantidad' %}
+				                                		{{ form_widget(nested_field, {'attr': {'style': 'width: 50px; text-align: center;'}}) }}
+				                                	{% elseif field_name=='pesototal'%}
+				                                		{{ form_widget(nested_field, {'attr': {'style': 'width: 150px; text-align: center;'}}) }}
+				                                	{% elseif field_name=='product'%}
+				                                		{{ form_widget(nested_field) }}
+				                                	{% else %}
+				                                        {{ form_widget(nested_field) }}
+				                                     {% endif %}
+				                                        {% set dummy = nested_group_field.setrendered %}
+				                                    {% if nested_field.vars.errors|length > 0 %}
+				                                        <div class="sonata-ba-field-error-messages">
+				                                            {{ form_errors(nested_field) }}
+				                                        </div>
+				                                    {% endif %}
+				                                </td>
+				                                {% endif %}
+				                            {% endfor %}
+				                        </tr>
+				                        {% endif %}
+				                    {% endfor %}
+				                </tbody>
+				            </table>
+	                    {% endfor %}
+                    {% endif %}
+                {% endif %}    
+            {% endif %}
+        </span>
+    </div>
+{% endif %}
+
+
+{% endblock %}

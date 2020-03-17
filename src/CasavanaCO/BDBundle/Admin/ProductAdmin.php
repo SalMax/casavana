@@ -11,6 +11,7 @@ use Sonata\AdminBundle\Form\FormType;
 
 class ProductAdmin extends Admin
 {
+
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper

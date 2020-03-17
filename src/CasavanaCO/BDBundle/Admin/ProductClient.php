@@ -46,6 +46,7 @@ class ProductClient extends Admin
         $listMapper
             ->addIdentifier('name')
             ->add('price')
+            ->add('category')
             ->add('description')
         ;
     }

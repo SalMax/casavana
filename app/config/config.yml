@@ -6,24 +6,26 @@ imports:
     # Sonata Bundles
     - { resource: sonata/sonata_admin.yml }
     - { resource: sonata/sonata_block.yml }
-    - { resource: sonata/sonata_user.yml }
+    #- { resource: sonata/sonata_user.yml }
 
 framework:
     #esi:             ~
-    translator:      { fallback: "%locale%" }
-    secret:          "%secret%"
+    translator:      { fallback: %locale% }
+    secret:          %secret%
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
-        strict_requirements: "%kernel.debug%"
-    form:            true
-    csrf_protection: true
+        strict_requirements: ~
+    form:            ~
+    csrf_protection: ~
     validation:      { enable_annotations: true }
-    templating:      { engines: ['twig'] } #assets_version: SomeVersionScheme
+    templating:
+        engines: ['twig']
+        #assets_version: SomeVersionScheme
     default_locale:  "%locale%"
-    trust_proxy_headers: false # Deprecated in 2.0; will be removed in 2.3 (used trusted_proxies instead)
     trusted_proxies: ~
     session:         ~
-    #translator: ~
+    fragments:       ~
+    http_method_override: true
 
 # Twig Configuration
 twig:
@@ -70,51 +72,17 @@ doctrine:
 
 # Swiftmailer Configuration
 swiftmailer:
-    transport: "%mailer_transport%"
-    host:      "%mailer_host%"
-    username:  "%mailer_user%"
-    password:  "%mailer_password%"
+    transport: smtp
+    encryption: ssl
+    auth_mode: login
+    host:      smtp.gmail.com
+    username:  casavanacentralorder@gmail.com
+    password:  "c4s4v4n4"
     spool:     { type: memory }
 
-sonata_doctrine_orm_admin:
-    # default value is null, so doctrine uses the value defined in the configuration
-    entity_manager: ~
-    templates:
-        form:
-            - CasavanaCOBDBundle:ORMForms:form_admin_fields.html.twig
-        filter:
-            - SonataDoctrineORMAdminBundle:Form:filter_admin_fields.html.twig
-        types:
-            list:
-                array:      SonataAdminBundle:CRUD:list_array.html.twig
-                boolean:    SonataAdminBundle:CRUD:list_boolean.html.twig
-                date:       SonataAdminBundle:CRUD:list_date.html.twig
-                time:       SonataAdminBundle:CRUD:list_time.html.twig
-                datetime:   SonataAdminBundle:CRUD:list_datetime.html.twig
-                text:       CasavanaCOBDBundle:CRUD:base_list_field.html.twig
-                trans:      SonataAdminBundle:CRUD:list_trans.html.twig
-                string:     SonataAdminBundle:CRUD:base_list_field.html.twig
-                smallint:   SonataAdminBundle:CRUD:base_list_field.html.twig
-                bigint:     SonataAdminBundle:CRUD:base_list_field.html.twig
-                integer:    SonataAdminBundle:CRUD:base_list_field.html.twig
-                decimal:    SonataAdminBundle:CRUD:base_list_field.html.twig
-                identifier: SonataAdminBundle:CRUD:base_list_field.html.twig
-
-            show:
-                array:      SonataAdminBundle:CRUD:show_array.html.twig
-                boolean:    SonataAdminBundle:CRUD:show_boolean.html.twig
-                date:       SonataAdminBundle:CRUD:show_date.html.twig
-                time:       SonataAdminBundle:CRUD:show_time.html.twig
-                datetime:   SonataAdminBundle:CRUD:show_datetime.html.twig
-                text:       SonataAdminBundle:CRUD:base_show_field.html.twig
-                trans:      SonataAdminBundle:CRUD:show_trans.html.twig
-                string:     SonataAdminBundle:CRUD:base_show_field.html.twig
-                smallint:   SonataAdminBundle:CRUD:base_show_field.html.twig
-                bigint:     SonataAdminBundle:CRUD:base_show_field.html.twig
-                integer:    SonataAdminBundle:CRUD:base_show_field.html.twig
-                decimal:    SonataAdminBundle:CRUD:base_show_field.html.twig
 services:
-  CasavanaCO.BDBundle.Form.Type.ListaProductos:
-    class: CasavanaCO\BDBundle\Form\Type\ListaProductos
-    tags:
-        - { name: form.type, alias: listaproductos }
+    casavanaco.bdbundle.admin.invoiceclient:
+        class: CasavanaCO\BDBundle\Admin\InvoiceClient
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Client, label: InvoicesClient }
+        arguments: [null, CasavanaCO\BDBundle\Entity\Invoice, CasavanaCOBDBundle:InvoiceClient, @service_container]

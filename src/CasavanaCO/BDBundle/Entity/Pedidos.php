@@ -34,12 +34,12 @@ class Pedidos {
 
     /**
      * @ORM\ManyToOne(targetEntity="CasavanaCO\BDBundle\Entity\Product", inversedBy="pedidos")
-     * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="product_id", referencedColumnName="id", nullable=false)
      * */
     protected $product;
 
     /**
-     * @ORM\ManyToOne(targetEntity="CasavanaCO\BDBundle\Entity\Invoice", inversedBy="invoiceproducts")
+     * @ORM\ManyToOne(targetEntity="CasavanaCO\BDBundle\Entity\Invoice", inversedBy="invoiceproducts", cascade={"persist"})
      * @ORM\JoinColumn(name="invoice_id", referencedColumnName="id")
      * */
     protected $invoice;
